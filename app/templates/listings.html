@@ -1,0 +1,81 @@
+{% extends 'base.html' %} {# This line indicates that this HTML file (listings.html)
+                            inherits from and extends the 'base.html' template.
+                            This provides a consistent site structure including
+                            the header, navigation, and base scripts. #}
+
+{% block title %}Companies - Skilled Worker Marketplace{% endblock %} {# This block
+                                                                   overrides the default
+                                                                   'title' in base.html,
+                                                                   setting a specific title
+                                                                   for the browser tab for
+                                                                   the companies listings page. #}
+
+{% block content %} {# This is the main content block for the companies listings page. #}
+    <section class="filter-section">
+        <h2>Our Professionals</h2>
+        {# This form allows users to filter and search companies. When submitted, it
+           sends a GET request to the `main.listings` route, passing the selected
+           filters and search query as URL parameters. #}
+        <form action="{{ url_for('main.listings') }}" method="GET">
+            {# Dropdown for selecting a service category to filter companies. #}
+            <select name="service_id" class="filter-category">
+                <option value="">All Categories</option> {# Default option to show all categories. #}
+                {# Jinja2 loop: Iterates over the `services` list (passed from the Flask route)
+                   to populate the dropdown with available service types. #}
+                {% for service in services %} 
+                {# Each service becomes an option. The `selected` attribute is added if
+                   the `service_id` matches the `selected_service_id` (the current filter),
+                   keeping the dropdown's state when the page reloads. #}
+                <option value="{{ service.service_id }}" {% if service.service_id == selected_service_id %}selected{% endif %}>
+                    {{ service.service_name }} {# Displays the name of the service. #}
+                </option>
+                {% endfor %}
+            </select>
+            {# Input field for searching companies by name or other criteria.
+               The `value="{{ query }}"` attribute ensures that the previously
+               entered search query is retained in the input field after a search. #}
+            <input type="text" name="q" class="search-bar" placeholder="Search by name..." value="{{ query }}"> 
+            <button type="submit" class="search-btn">Apply Filters / Search</button> {# Button to submit the filter/search form. #}
+        </form>
+    </section>
+
+    <section class="listings">
+        <div class="listings-cards">
+            {% if companies %} {# Jinja2 conditional: Checks if there are any companies to display. #}
+                {# Jinja2 loop: Iterates through the list of `companies` (which are the paginated results). #}
+                {% for company in companies %} 
+                {# Each company is displayed as a clickable card. The `href` links to
+                   the individual company's profile page using its `company_id`. #}
+                <a href="{{ url_for('main.company_profile', company_id=company.company_id) }}" class="listings-card">
+                    {# Company's main profile image. `url_for('static', ...)` generates the path. #}
+                    <img src="{{ url_for('static', filename=company.photo_url) }}" alt="{{ company.name }}">
+                    <div class="company-info">
+                        <h3>{{ company.name }}</h3> {# Displays the company's name. #}
+                        <p>{{ company.description }}</p> {# Displays a brief description. #}
+                        {# Displays the company's rating, rounded to one decimal place. #}
+                        <div class="rating">Rating: {{ company.rating|round(1) }}</div> 
+                    </div>
+                </a>
+                {% endfor %}
+            {% else %}
+                {# Message displayed if no companies are found based on the applied filters or search query. #}
+                <p>No companies found matching your criteria.</p>
+            {% endif %}
+        </div>
+        
+        {# Pagination Controls #}
+        <div class="pagination">
+            {% if pagination.has_prev %} {# Conditional: Displays "Previous" link if there's a previous page. #}
+            {# The `href` for pagination links constructs the URL, preserving the current
+               search query (`q`) and selected service ID (`service_id`) for consistent filtering
+               across pages. #}
+            <a href="{{ url_for('main.listings', page=pagination.page - 1, q=query, service_id=selected_service_id) }}">Previous</a>
+            {% endif %}
+            {# Displays the current page number and the total number of pages. #}
+            <span>Page {{ pagination.page }} of {{ pagination.pages }}</span>
+            {% if pagination.has_next %} {# Conditional: Displays "Next" link if there's a next page. #}
+            <a href="{{ url_for('main.listings', page=pagination.page + 1, q=query, service_id=selected_service_id) }}">Next</a>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}

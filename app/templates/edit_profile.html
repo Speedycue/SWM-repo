@@ -1,0 +1,77 @@
+{% extends 'base.html' %} {# This line indicates that this HTML file (edit_profile.html)
+                            inherits from and extends the 'base.html' template. This means
+                            it will use the common header, navigation, and footer defined
+                            in base.html. #}
+
+{% block title %}Edit Profile - Skilled Worker Marketplace{% endblock %} {# This block
+                                                                       overrides the default
+                                                                       'title' in base.html,
+                                                                       setting a specific title
+                                                                       for the browser tab for
+                                                                       the client's edit profile page. #}
+
+{% block content %} {# This is the main content block for the client's edit profile page. #}
+<div class="edit-profile-container">
+    <h1>Edit Your Profile</h1>
+
+    {# Flash messages display area #}
+    {# This section is included to display any flash messages (e.g., success, error, info)
+       that are sent from Flask routes to the frontend. #}
+    <div class="flash-messages-container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message flash-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    {# The HTML form for editing the client's profile.
+       - `method="POST"` specifies that form data will be sent via a POST request.
+       - `action="{{ url_for('main.edit_client_profile', client_id=current_user.client_id) }}"`
+         dynamically generates the URL for the form submission. It points to the `edit_client_profile`
+         route in the 'main' blueprint and includes the current user's client ID.
+         This ensures the form targets the correct user's profile for updates. #}
+    <form method="POST" action="{{ url_for('main.edit_client_profile', client_id=current_user.client_id) }}">
+        {# CSRF Token for security (important for Flask forms) #}
+        {# This is a comment block explaining the importance of CSRF tokens for security.
+           In a real application, you'd typically include a hidden input field for CSRF protection
+           to prevent cross-site request forgery attacks. Flask-WTF forms often handle this automatically. #}
+        {# <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"> #}
+
+        <div class="input-group">
+            <label for="name">Name:</label> {# Label for the name input field. #}
+            {# Text input for the client's name. The `value` attribute is pre-filled with the current user's name. #}
+            <input type="text" id="name" name="name" value="{{ current_user.name }}" required>
+        </div>
+
+        <div class="input-group">
+            <label for="email">Email:</label> {# Label for the email input field. #}
+            {# Email input for the client's email. Pre-filled with the current user's email. #}
+            <input type="email" id="email" name="email" value="{{ current_user.email }}" required>
+        </div>
+
+        <div class="input-group">
+            <label for="current_password">Current Password (required to change anything):</label> {# Label for current password. #}
+            {# Input field for the current password. This is required for any profile updates as a security measure. #}
+            <input type="password" id="current_password" name="current_password" required>
+        </div>
+
+        <div class="input-group">
+            <label for="new_password">New Password:</label> {# Label for new password. #}
+            {# Input field for setting a new password. The `placeholder` suggests it can be left blank. #}
+            <input type="password" id="new_password" name="new_password" placeholder="Leave blank if not changing">
+            <small>Minimum 6 characters</small> {# Small text providing a password requirement hint. #}
+        </div>
+
+        <div class="input-group">
+            <label for="confirm_new_password">Confirm New Password:</label> {# Label for confirming new password. #}
+            {# Input field to re-enter the new password for confirmation. #}
+            <input type="password" id="confirm_new_password" name="confirm_new_password" placeholder="Confirm new password">
+        </div>
+
+        <button type="submit" class="btn auth-btn">Update Profile</button> {# Submit button to update the profile. #}
+    </form>
+</div>
+{% endblock %}

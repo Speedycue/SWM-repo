@@ -1,0 +1,56 @@
+{% extends 'base.html' %} {# This line indicates that this HTML file (index.html) inherits
+                            from and extends the 'base.html' template. This means it will
+                            include the header, navigation, and footer defined in base.html,
+                            and you only need to fill in the 'content' block. #}
+
+{# This block overrides the default 'title' block defined in base.html. #}
+{# It sets the specific title for this page, which appears in the browser tab. #}
+{% block title %}Home - Skilled Worker Marketplace{% endblock %} 
+
+{% block content %} {# This is the main content block where unique HTML for the homepage is placed.
+                      It will be inserted into the `<main>` section of the base.html layout. #}
+    <section class="search-section">
+        <h2>Find the right professional for your needs</h2>
+        {# Form for searching companies/services. When submitted, it will send a GET request
+           to the 'main.listings' route. #}
+        <form action="{{ url_for('main.listings') }}" method="GET"> 
+            {# Text input field for the search query. The `name="q"` attribute is crucial
+               as Flask will pick up its value as a query parameter 'q'. #}
+            <input type="text" class="search-bar" placeholder="Search for services or companies..." name="q"> 
+            <button type="submit" class="search-btn">Search</button>
+        </form>
+    </section>
+
+    <section class="category-section">
+        <h2>Popular Categories</h2>
+        <div class="category-cards">
+            {# Jinja2 loop: Iterates over the 'categories' list, which is passed from the Flask route. #}
+            {% for category in categories %} 
+            {# Each category is displayed as a clickable card. The `href` links to the listings page,
+               filtering by the specific `service_id` of the current category. #}
+            <a href="{{ url_for('main.listings', service_id=category.service_id) }}" class="category-card"> 
+                <h3>{{ category.service_name }}</h3> {# Displays the name of the category. #}
+            </a>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="recommended-section">
+        <h2>Recommended Companies</h2>
+        <div class="company-cards">
+            {# Jinja2 loop: Iterates over the 'recommended_companies' list, also passed from the Flask route. #}
+            {% for company in recommended_companies %} 
+            {# Each recommended company is displayed as a clickable card. The `href` links to
+               the individual company's profile page using its `company_id`. #}
+            <a href="{{ url_for('main.company_profile', company_id=company.company_id) }}" class="company-card">
+                {# Company's main profile image. `url_for('static', ...)` generates the path to the image. #}
+                <img src="{{ url_for('static', filename=company.photo_url) }}" alt="{{ company.name }}">
+                <h3>{{ company.name }}</h3> {# Displays the company's name. #}
+                <p>{{ company.description }}</p> {# Displays a brief description of the company. #}
+                {# Displays the company's rating, rounded to one decimal place using a Jinja2 filter. #}
+                <div class="rating">Rating: {{ company.rating|round(1) }}</div> 
+            </a>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

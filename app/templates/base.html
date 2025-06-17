@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {# Defines the title of the HTML document, which appears in the browser tab. #}
+    {# `{% block title %}{% endblock %}` is a Jinja2 block that allows child templates #}
+    {# to override or extend this title. "Skilled Worker Marketplace" is the default. #}
+    <title>{% block title %}Skilled Worker Marketplace{% endblock %}</title>
+    {# Links the external CSS stylesheet. #}
+    {# `url_for('static', filename='css/style.css')` is a Flask function that generates #}
+    {# the correct URL for static files (like CSS, JS, images) by looking in the 'static' folder. #}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+{# The `<body>` tag contains all the content of the HTML document. #}
+{# `{% block body_class %}{% endblock %}` allows child templates to add specific CSS classes #}
+{# to the body tag, useful for page-specific styling (e.g., 'about-page' for the About Us page). #}
+<body class="{% block body_class %}{% endblock %}">
+    <header>
+        <div class="logo">
+            <a href="{{ url_for('main.index') }}">
+                {# The logo image. `url_for` generates the path to the image in the static folder. #}
+                <img src="{{ url_for('static', filename='images/SWM1.png') }}" alt="Skilled Worker Marketplace">
+            </a>
+        </div>
+
+        <nav>
+            <ul>
+                {# Navigation links to different pages. `url_for` generates the correct URL for each route. #}
+                <li><a href="{{ url_for('main.index') }}">Home</a></li>
+                <li><a href="{{ url_for('main.listings') }}">Companies</a></li>
+                <li><a href="{{ url_for('main.about') }}">About us</a></li>
+                
+                {# Jinja2 conditional statement: Checks if a user is currently logged in. #}
+                {% if current_user.is_authenticated %}
+                    {# Each of these should now be its own LI for consistent flex layout #}
+                    {# Link to the user's chat list, only visible when logged in. #}
+                    <li><a href="{{ url_for('main.all_chats') }}">Your Chats</a></li>
+                    
+                    {# Nested conditional: Checks the type of the logged-in user. #}
+                    {% if current_user.is_client %}
+                        {# If the user is a client, show a link to their client profile. #}
+                        <li><a href="{{ url_for('main.client_profile', client_id=current_user.client_id) }}" class="auth-btn">Client Profile</a></li>
+                    {% elif current_user.is_company %}
+                        {# If the user is a company, show a link to their company profile. #}
+                        <li><a href="{{ url_for('main.company_profile', company_id=current_user.company_id) }}" class="auth-btn">Company Profile</a></li>
+                    {% endif %}
+                    
+                    {# Logout link, only visible when logged in. #}
+                    <li><a href="{{ url_for('main.logout') }}" class="auth-btn">Logout</a></li>
+                {% else %}
+                    {# If no user is logged in, show a combined "Sign Up / Login" link. #}
+                    <li><a href="{{ url_for('main.login_choice') }}" class="auth-btn">Sign Up / Login</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    {# Jinja2 `with` statement to retrieve flashed messages. #}
+    {# `get_flashed_messages(with_categories=true)` fetches messages sent from Flask routes, #}
+    {# including their categories (e.g., 'success', 'danger', 'info'). #}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {# Conditional: Only display the flash messages container if there are messages. #}
+        {% if messages %}
+            <div class="flash-messages-container">
+                {# Loop through each message (category and content). #}
+                {% for category, message in messages %}
+                    {# Display each message with a class based on its category for styling. #}
+                    <div class="flash-message flash-{{ category }}">
+                        {{ message }} {# The actual message content. #}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    {# Main content area of the page. #}
+    {# `{% block content %}{% endblock %}` is a Jinja2 block where specific page content #}
+    {# from child templates will be inserted. #}
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    {# Links the main JavaScript file for dynamic client-side behavior. #}
+    <script src="{{ url_for('static', filename='js/java.js') }}"></script>
+
+    {# Optional: For external icons from Ionicon library #}
+    {# These script tags load the Ionicon library, which provides a wide range of icons. #}
+    {# They are loaded from unpkg.com, a CDN for npm packages. #}
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

@@ -1,0 +1,1423 @@
+/* Reset default margins and paddings across browsers */
+/* The universal selector (*) targets every element on the page. */
+* {
+    margin: 0; /* Removes default outer spacing around elements. */
+    padding: 0; /* Removes default inner spacing inside elements. */
+    /* box-sizing: border-box; ensures that padding and borders are included
+       in an element's total width and height, preventing unexpected layout shifts. */
+    box-sizing: border-box; 
+    /* Sets a consistent font family across the entire document. */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* General image responsiveness: applies to ALL images by default unless overridden by more specific rules */
+img {
+    /* max-width: 100%; ensures images scale down to fit their parent container
+       if the container is smaller than the image's intrinsic width, preventing overflow. */
+    max-width: 100%; 
+    /* height: auto; maintains the image's aspect ratio when its width changes,
+       avoiding distortion. */
+    height: auto;    
+    /* display: block; removes extra space below images that can occur due to
+       their default inline-block behavior, making layout more predictable. */
+    display: block;  
+}
+
+/* Body Styling */
+body {
+    /* Sets a very light, clean background color for the entire page. */
+    background-color: #f0f4f8; 
+    /* Sets a dark gray color for the default text. */
+    color: #222; 
+    /* Sets the height of each line of text, improving readability. */
+    line-height: 1.6;
+}
+
+/* Header Section (Likely your navigation bar container) */
+header {
+    background-color: #ffffff; /* Sets a white background for the header. */
+    padding: 20px 40px; /* Adds 20px vertical padding and 40px horizontal padding. */
+    /* Applies a subtle shadow to the bottom of the header, giving it depth. */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    margin: 1px; /* A minimal margin, potentially for a subtle border effect or separation. */
+    
+    /* display: flex; enables Flexbox for direct children, allowing horizontal layout. */
+    display: flex;       
+    /* justify-content: space-between; distributes items with space between them,
+       pushing the logo to the left and navigation to the right. */
+    justify-content: space-between; 
+    /* align-items: center; vertically centers items within the flex container. */
+    align-items: center;    
+}
+
+/* Logo Styling within the header */
+.logo img {
+    width: 180px; /* Sets a fixed width for the logo image. */
+    height: auto; /* Maintains aspect ratio, already set by the general img rule. */
+    /* Comments indicating that general image responsiveness rules already apply. */
+}
+
+/* Navigation Bar Styling */
+nav ul {
+    display: flex; /* Enables Flexbox for list items, arranging them horizontally. */
+    gap: 30px; /* Creates 30px space between navigation list items. */
+    list-style-type: none; /* Removes default bullet points from list items. */
+}
+
+nav ul li a {
+    text-decoration: none; /* Removes underline from links. */
+    color: #005c99; /* Sets the default text color of navigation links. */
+    font-weight: 600; /* Makes the link text semi-bold. */
+    padding: 8px 12px; /* Adds padding around the link text, making them easier to click. */
+    border-radius: 6px; /* Rounds the corners of the link background. */
+    /* Smooth transition for background color and text color on hover. */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: #005c99; /* Changes background color on hover. */
+    color: #fff; /* Changes text color to white on hover. */
+}
+
+/* Main Content Section */
+main {
+    padding: 40px 20px; /* Adds 40px vertical and 20px horizontal padding inside the main content area. */
+    max-width: 1200px; /* Limits the maximum width of the main content area. */
+    margin: auto; /* Centers the main content area horizontally on the page. */
+}
+
+/* Search Bar Section */
+.search-section {
+    text-align: center; /* Centers the content within the search section. */
+    margin: 30px 0; /* Adds 30px vertical margin above and below the section. */
+}
+
+.search-bar {
+    width: 80%; /* Sets the width of the search input field to 80% of its parent. */
+    padding: 10px 15px; /* Adds padding inside the input field. */
+    font-size: 18px; /* Sets the font size of the input text. */
+    border-radius: 25px; /* Makes the input field's corners rounded. */
+    border: 2px solid #ccc; /* Adds a light gray border. */
+    margin-right: 10px; /* Adds space to the right of the input field. */
+}
+
+.search-btn {
+    padding: 10px 20px; /* Adds padding inside the button. */
+    border: none; /* Removes default button border. */
+    background-color: #007BFF; /* Sets a blue background color. */
+    color: white; /* Sets text color to white. */
+    border-radius: 25px; /* Rounds the button's corners. */
+    border: 2px solid #ccc2; /* Adds a transparent border. */
+    font-size: 16px; /* Sets the font size of the button text. */
+    cursor: pointer; /* Changes cursor to a pointer on hover, indicating interactivity. */
+}
+
+/* Category Section */
+.category-section {
+    margin: 50px 30px; /* Adds 50px vertical and 30px horizontal margin. */
+}
+
+.category-cards {
+    display: flex; /* Enables Flexbox for category cards. */
+    gap: 20px; /* Creates 20px space between category cards. */
+    justify-content: center; /* Centers the category cards horizontally. */
+}
+
+.category-card {
+    background-color: #f5f5f5; /* Sets a light gray background. */
+    padding: 20px; /* Adds padding inside each card. */
+    width: 200px; /* Sets a fixed width for each card. */
+    text-align: center; /* Centers text horizontally within the card. */
+    border-radius: 10px; /* Rounds the card's corners. */
+    /* Applies a shadow for depth. */
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    text-decoration: none; /* Removes underline from the link. */
+    color: #333; /* Sets text color. */
+    transition: transform 0.3s ease; /* Smooth transition for transform on hover. */
+}
+
+.category-card:hover {
+    transform: scale(1.05); /* Slightly enlarges the card on hover. */
+}
+
+/* Recommended and Saved Sections (company-cards used in index.html and client_profile.html) */
+.recommended-section {
+    /* Adds horizontal padding to the section itself, ensuring content has space
+       on the sides without interfering with the horizontal scrolling of cards. */
+    padding: 0 20px; 
+    margin-top: 50px; /* Adds vertical spacing above the section. */
+    margin-bottom: 50px; /* Adds vertical spacing below the section. */
+}
+
+.recommended-section h2 {
+    margin-left: 0; /* Ensures the heading aligns with the start of the cards. */
+    padding-left: 0; /* Removes any conflicting padding. */
+    text-align: center; /* Centers the heading. */
+    margin-bottom: 20px; /* Adds space below the heading. */
+}
+
+.company-cards {
+    display: flex; /* Enables Flexbox for company cards. */
+    gap: 20px; /* Creates 20px space between company cards. */
+    flex-wrap: nowrap; /* Prevents cards from wrapping to the next line, forcing horizontal layout. */
+    overflow-x: auto; /* Enables horizontal scrolling if content overflows. */
+    
+    padding-top: 20px; 
+    padding-bottom: 20px;
+    padding-left: 0; /* Explicitly ensures no left padding inside this container,
+                        as padding for the section is handled by `.recommended-section`. */
+    padding-right: 0; /* Explicitly ensures no right padding. */
+
+    /* Add scroll-snap for a smoother scrolling experience */
+    scroll-snap-type: x mandatory; /* Makes the scroll "snap" to elements horizontally. */
+    /* Make scrollbar prettier (optional) */
+    -webkit-overflow-scrolling: touch; /* Improves scrolling performance on iOS devices. */
+    scrollbar-width: thin; /* Firefox specific: sets the width of the scrollbar. */
+    scrollbar-color: #888 #f1f1f1; /* Firefox specific: sets the color of the thumb and track. */
+}
+
+/* Optional: Style for Webkit browsers (Chrome, Safari) scrollbar */
+.company-cards::-webkit-scrollbar {
+    height: 8px; /* Sets the height for horizontal scrollbar in Webkit browsers. */
+}
+
+.company-cards::-webkit-scrollbar-thumb {
+    background-color: #888; /* Color of the scrollbar thumb. */
+    border-radius: 10px; /* Rounds the corners of the scrollbar thumb. */
+}
+
+.company-cards::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Color of the scrollbar track. */
+}
+
+.company-card {
+    width: 200px; /* Sets a fixed width for each company card. */
+    background-color: #fff; /* White background. */
+    padding: 15px; /* Padding inside the card. */
+    text-align: center; /* Centers text. */
+    border-radius: 10px; /* Rounds corners. */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Adds shadow. */
+    text-decoration: none; /* Removes underline. */
+    color: #333; /* Text color. */
+    transition: transform 0.3s ease; /* Smooth transition on hover. */
+    /* flex-shrink: 0; prevents the card from shrinking smaller than its defined width,
+       important in a flex container with `flex-wrap: nowrap`. */
+    flex-shrink: 0; 
+    /* scroll-snap-align: start; makes the scrolling snap to the beginning edge of each card. */
+    scroll-snap-align: start; 
+}
+
+.company-card img {
+    width: 100%; /* Image fills the width of its parent card. */
+    height: 120px; /* Fixed height for consistent image size across cards. */
+    /* object-fit: cover; ensures the image covers the entire 120px height,
+       cropping parts if necessary, maintaining aspect ratio within the box. */
+    object-fit: cover; 
+    border-radius: 8px; /* Rounds image corners. */
+    margin-bottom: 10px; /* Space below the image. */
+}
+
+.company-card h3 {
+    font-size: 18px; /* Sets heading font size. */
+    margin: 10px 0; /* Vertical margin for the heading. */
+}
+
+.rating {
+    color: #f5b400; /* Sets a golden color for ratings (stars). */
+    font-weight: bold; /* Makes rating text bold. */
+}
+
+.company-card:hover {
+    transform: scale(1.05); /* Slightly enlarges the card on hover. */
+}
+
+/* Button Styling (General Purpose) */
+.auth-btn {
+    text-decoration: none; /* Removes underline from links styled as buttons. */
+    color: #fff; /* White text color. */
+    background-color: #005c99; /* Blue background. */
+    padding: 10px 20px; /* Padding inside the button. */
+    border-radius: 25px; /* Rounded corners. */
+    font-size: 16px; /* Text font size. */
+    transition: background-color 0.3s ease; /* Smooth transition for background color. */
+}
+
+.auth-btn:hover {
+    background-color: #0056b3; /* Slightly darker blue on hover. */
+}
+
+/* ------------------------------- */
+/* LISTINGS PAGE STYLING          */
+/* ------------------------------- */
+
+/* Filter Section */
+.filter-section {
+    margin: 20px 0; /* Vertical margin. */
+    text-align: center; /* Centers content within the filter section. */
+}
+
+.filter-category, .filter-rating {
+    padding: 10px; /* Padding inside filter dropdowns/inputs. */
+    border-radius: 5px; /* Slightly rounded corners. */
+    margin: 10px; /* Space around filters. */
+    font-size: 16px; /* Font size. */
+}
+
+/* Listings Page - Company Listings Display */
+.listings {
+    margin-top: 30px; /* Space above the listings container. */
+}
+
+.listings-cards {
+    display: flex; /* Enables Flexbox. */
+    flex-direction: column; /* Stacks cards vertically. */
+    gap: 20px; /* Space between vertically stacked cards. */
+}
+
+.listings-card {
+    display: flex; /* Enables Flexbox for each individual listing card. */
+    padding: 15px; /* Padding inside the card. */
+    background-color: #fff; /* White background. */
+    border-radius: 10px; /* Rounded corners. */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Adds shadow. */
+    text-decoration: none; /* Removes underline from the link. */
+    color: inherit; /* Inherits text color from parent. */
+    transition: transform 0.2s; /* Smooth transition on hover. */
+}
+
+.listings-card:hover {
+    transform: scale(1.03); /* Slightly enlarges the card on hover. */
+}
+
+.listings-card img {
+    width: 150px; /* Fixed width for the image within the listing card. */
+    height: 100px; /* Fixed height for the image. */
+    object-fit: cover; /* Ensures image covers the area, cropping if necessary. */
+    border-radius: 8px; /* Rounds image corners. */
+    margin-right: 20px; /* Space to the right of the image. */
+    /* flex-shrink: 0; prevents the image from shrinking in a flex container,
+       ensuring it maintains its `width`. */
+    flex-shrink: 0; 
+}
+
+.company-info {
+    display: flex; /* Enables Flexbox for company info section. */
+    flex-direction: column; /* Stacks content vertically. */
+    justify-content: center; /* Vertically centers content within this flex container. */
+}
+
+.company-info h3 {
+    margin: 0; /* Removes default margin for heading. */
+    font-size: 18px; /* Sets font size. */
+    color: #333; /* Sets text color. */
+}
+
+.company-info p {
+    margin: 10px 0; /* Vertical margin for paragraphs. */
+    color: #777; /* Lighter gray text color for paragraphs. */
+}
+
+
+/* Rating is already defined earlier, global .rating style applies */
+
+/* ------------------------------- */
+/* COMPANY PROFILE PAGE STYLING    */
+/* ------------------------------- */
+
+.company-profile {
+    background-color: #fff; /* White background for the profile card. */
+    padding: 30px; /* Padding inside the profile card. */
+    margin: 20px auto; /* Centers the profile card horizontally with vertical margin. */
+    width: 80%; /* Sets the width of the profile card. */
+    max-width: 1200px; /* Ensures the profile card doesn't get too wide on large screens. */
+    box-sizing: border-box; /* Includes padding and border in the element's total width/height. */
+    border-radius: 12px; /* Rounds the corners of the profile card. */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Adds a soft shadow for depth. */
+}
+
+/* Company Name Heading */
+.company-profile h1 {
+    font-size: 2rem; /* Sets a large font size for the company name. */
+    margin-bottom: 10px; /* Space below the company name. */
+    color: #1a237e; /* Deep blue color for the heading. */
+}
+
+/* About Section in Company Profile */
+.company-profile .about {
+    font-size: 1rem; /* Standard font size for descriptive text. */
+    color: #444; /* Dark gray text color. */
+    line-height: 1.6; /* Improves readability of longer text blocks. */
+    margin-bottom: 20px; /* Space below the about section. */
+}
+
+/* Contact Info Section in Company Profile */
+.company-profile .contact-info {
+    background-color: #f1f1f1; /* Light gray background for the contact info box. */
+    padding: 15px; /* Padding inside the contact info box. */
+    border-radius: 8px; /* Rounds the corners of the contact info box. */
+    margin-bottom: 20px; /* Space below the contact info box. */
+}
+
+.contact-info p {
+    margin: 5px 0; /* Vertical margin for paragraphs within contact info. */
+    font-weight: 500; /* Medium bold font weight. */
+}
+
+/* Image gallery within company profile (specific to images directly inside .gallery) */
+.company-profile .gallery {
+    display: flex; /* Enables Flexbox for gallery images, arranging them horizontally. */
+    gap: 10px; /* Space between gallery images. */
+    flex-wrap: wrap; /* Allows images to wrap to the next line if space runs out. */
+    margin-bottom: 20px; /* Adds margin below the gallery section. */
+}
+
+.company-profile .gallery img {
+    width: 180px; /* Fixed width for gallery images. */
+    height: 120px; /* Fixed height for gallery images. */
+    object-fit: cover; /* Ensures images cover the area, cropping if necessary, while maintaining aspect ratio. */
+    border-radius: 6px; /* Rounds image corners. */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow to each image. */
+}
+
+/* Gallery Section Styling (general, potentially for a dedicated gallery page or a general section) */
+/* Note: The `.company-profile .gallery` rule is more specific and will override these rules
+   for images directly within the company profile's gallery. */
+.gallery {
+    background-color: #f4f4f4; /* Light gray background for a general gallery section. */
+    padding: 30px; /* Padding inside the section. */
+    text-align: center; /* Centers content within the section. */
+}
+
+.gallery h2 {
+    font-size: 24px; /* Heading font size. */
+    margin-bottom: 20px; /* Space below heading. */
+}
+
+.gallery-container {
+    display: flex; /* Enables Flexbox for gallery items. */
+    justify-content: space-around; /* Distributes items with space around them. */
+    flex-wrap: wrap; /* Allows items to wrap to new lines. */
+    gap: 20px; /* Space between gallery items. */
+}
+
+.gallery-item {
+    width: 250px; /* Fixed width for each gallery item container. */
+    height: 160px; /* Fixed height for each gallery item container. */
+    overflow: hidden; /* Hides content that overflows the item boundaries. */
+    border-radius: 8px; /* Rounds corners. */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds shadow. */
+    display: flex; /* Enables Flexbox for content inside the item. */
+    align-items: center; /* Vertically centers content. */
+    justify-content: center; /* Horizontally centers content. */
+    background-color: #fff; /* Optional white background. */
+}
+
+.gallery-item img {
+    width: 100%; /* Image fills the width of its container. */
+    height: 100%; /* Image fills the height of its container. */
+    object-fit: cover; /* Ensures the image covers the entire area, cropping if necessary. */
+    border-radius: 8px; /* Rounds image corners. */
+}
+
+/* Company Profile Action Buttons Section */
+.action-buttons {
+    margin-top: 20px; /* Space above the button container. */
+    display: flex; /* Arranges buttons horizontally. */
+    gap: 15px; /* Space between individual buttons. */
+    align-items: center; /* Vertically aligns buttons within the container. */
+    justify-content: center; /* Centers the group of buttons horizontally. */
+}
+
+/* Specific styles for the Message button */
+.btn.message-btn {
+    background-color: #007bff; /* Standard blue background. */
+    color: white; /* White text color. */
+    padding: 10px 20px; /* Padding inside the button. */
+    border-radius: 5px; /* Slightly rounded corners. */
+    text-decoration: none; /* Removes underline from the link. */
+    transition: background-color 0.3s ease; /* Smooth transition for background color. */
+    border: none; /* Removes any default button border. */
+    cursor: pointer; /* Explicitly sets cursor to pointer on hover. */
+}
+.btn.message-btn:hover {
+    background-color: #0056b3; /* Darker blue on hover. */
+}
+
+/* Styles for the Save/Un-save button's form wrapper */
+.save-form {
+    display: inline-block; /* Allows the form to sit inline with other elements (like message button). */
+    margin: 0; /* Removes default form margins. */
+    padding: 0; /* Removes default form padding. */
+}
+
+/* Specific styles for the Save/Un-save button itself */
+.btn.save-toggle-btn {
+    padding: 12px 25px; /* Slightly increased padding for a larger click area. */
+    border-radius: 5px; /* Rounds corners. */
+    border: none; /* Removes border. */
+    cursor: pointer; /* Pointer cursor on hover. */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transitions. */
+    width: auto; /* Crucial: Allows the button width to adjust to its content. */
+    height: auto; /* Crucial: Allows the button height to adjust. */
+    white-space: nowrap; /* Prevents the button text from wrapping. */
+    display: inline-block; /* Ensures it behaves correctly with `width: auto`. */
+}
+
+/* Green background for "Save Company" state */
+.btn.save-toggle-btn.save {
+    background-color: #28a745; /* Green background. */
+    color: white; /* White text. */
+}
+.btn.save-toggle-btn.save:hover {
+    background-color: #218838; /* Darker green on hover. */
+}
+
+/* Red background for "Un-save Company" state */
+.btn.save-toggle-btn.unsave {
+    background-color: #dc3545; /* Red background. */
+    color: white; /* White text. */
+}
+.btn.save-toggle-btn.unsave:hover {
+    background-color: #c82333; /* Darker red on hover. */
+}
+
+/*---------------------------*/
+/* --- Edit Profile Page --- */
+/*---------------------------*/
+/* --- Styles for Edit Profile Pages (Client & Company) --- */
+
+.edit-profile-container {
+    max-width: 800px; /* Max width for the edit profile form container. */
+    margin: 20px auto; /* Centers the container with vertical margins. */
+    padding: 30px; /* Padding inside the container. */
+    background-color: #fff; /* White background. */
+    border-radius: 8px; /* Rounded corners. */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Soft shadow. */
+}
+.edit-profile-container h1 {
+    text-align: center; /* Centers the heading. */
+    color: #333; /* Dark gray text. */
+    margin-bottom: 30px; /* Space below heading. */
+}
+.input-group {
+    margin-bottom: 20px; /* Space below each input group. */
+}
+.input-group label {
+    display: block; /* Makes label a block element, placing it on its own line. */
+    margin-bottom: 8px; /* Space below the label. */
+    font-weight: bold; /* Bold text. */
+    color: #555; /* Medium gray text. */
+}
+.input-group input[type="text"],
+.input-group input[type="email"],
+.input-group input[type="password"],
+.input-group textarea,
+.input-group select {
+    width: calc(100% - 22px); /* Calculates width to fill parent while accounting for 10px padding + 1px border on each side (total 22px). */
+    padding: 10px; /* Padding inside input fields. */
+    border: 1px solid #ddd; /* Light gray border. */
+    border-radius: 5px; /* Rounded corners. */
+    font-size: 1rem; /* Standard font size. */
+}
+.input-group textarea {
+    resize: vertical; /* Allows vertical resizing by the user. */
+    min-height: 80px; /* Minimum height for the textarea. */
+}
+.input-group small {
+    display: block; /* Makes small text a block element. */
+    margin-top: 5px; /* Space above small text. */
+    color: #888; /* Lighter gray text. */
+    font-size: 0.85em; /* Smaller font size. */
+}
+.file-upload-group input[type="file"] {
+    padding: 5px; /* Padding for file input. */
+    border: 1px dashed #ccc; /* Dashed border to indicate file drop area. */
+    border-radius: 5px; /* Rounded corners. */
+    background-color: #f9f9f9; /* Light background. */
+    cursor: pointer; /* Pointer cursor. */
+}
+.current-photo-preview {
+    max-width: 150px; /* Max width for current photo preview. */
+    height: auto; /* Maintains aspect ratio. */
+    display: block; /* Block display. */
+    margin-top: 10px; /* Space above. */
+    border: 1px solid #eee; /* Light border. */
+    border-radius: 5px; /* Rounded corners. */
+}
+.current-gallery-preview {
+    display: flex; /* Enables Flexbox for gallery previews. */
+    flex-wrap: wrap; /* Allows items to wrap. */
+    gap: 10px; /* Space between items. */
+    margin-top: 10px; /* Space above. */
+}
+.gallery-preview-item {
+    width: 100px; /* Smaller width for gallery preview items. */
+    height: 100px; /* Fixed height. */
+    object-fit: cover; /* Crops image to fit, maintaining aspect ratio. */
+    border: 1px solid #eee; /* Light border. */
+    border-radius: 5px; /* Rounded corners. */
+}
+hr {
+    border: none; /* Removes default horizontal rule border. */
+    border-top: 1px solid #eee; /* Adds a light gray top border. */
+    margin: 30px 0; /* Vertical margin. */
+}
+.btn.auth-btn {
+    display: block; /* Makes the button a block element, taking full width. */
+    width: 100%; /* Full width. */
+    padding: 12px; /* Padding inside. */
+    background-color: #007bff; /* Primary blue. */
+    color: white; /* White text. */
+    border: none; /* No border. */
+    border-radius: 5px; /* Rounded corners. */
+    font-size: 1.1rem; /* Slightly larger font size. */
+    cursor: pointer; /* Pointer cursor. */
+    transition: background-color 0.3s ease; /* Smooth transition. */
+}
+.btn.auth-btn:hover {
+    background-color: #0056b3; /* Darker blue on hover. */
+}
+
+/* ------------------------------- */
+/* CHAT INTERFACE STYLING          */
+/* ------------------------------- */
+
+.chat-container {
+    max-width: 800px; /* Max width for the chat interface. */
+    margin: 40px auto; /* Centers the chat container with vertical margins. */
+    background-color: #fff; /* White background. */
+    border-radius: 10px; /* Rounded corners. */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Soft shadow. */
+    display: flex; /* Enables Flexbox for internal layout. */
+    flex-direction: column; /* Stacks children vertically. */
+    height: 70vh; /* Sets a height relative to the viewport height. */
+    overflow: hidden; /* Hides content that overflows the container. */
+}
+
+.chat-header {
+    background-color: #005c99; /* Primary blue background for the chat header. */
+    color: white; /* White text. */
+    padding: 15px 20px; /* Padding inside the header. */
+    border-top-left-radius: 10px; /* Rounds top-left corner. */
+    border-top-right-radius: 10px; /* Rounds top-right corner. */
+    text-align: center; /* Centers text. */
+    font-size: 1.2em; /* Slightly larger font size. */
+}
+
+.message-list {
+    flex-grow: 1; /* Allows the message list to expand and fill available vertical space. */
+    padding: 20px; /* Padding inside the message list area. */
+    overflow-y: auto; /* Enables vertical scrolling if messages overflow. */
+    display: flex; /* Enables Flexbox for message bubbles. */
+    flex-direction: column; /* Stacks message bubbles vertically. */
+    gap: 10px; /* Space between message bubbles. */
+}
+
+.message-bubble {
+    max-width: 70%; /* Limits message bubble width to 70% of the container. */
+    padding: 10px 15px; /* Padding inside the bubble. */
+    border-radius: 20px; /* Highly rounded corners for a "bubble" look. */
+    word-wrap: break-word; /* Ensures long words break and wrap within the bubble. */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Subtle shadow for bubble effect. */
+}
+
+.message-bubble.sent {
+    background-color: #e2f0fe; /* Light blue background for messages sent by the current user. */
+    align-self: flex-end; /* Aligns sent messages to the right side of the container. */
+}
+
+.message-bubble.received {
+    background-color: #f1f0f0; /* Light gray background for received messages. */
+    align-self: flex-start; /* Aligns received messages to the left side of the container. */
+}
+
+.message-timestamp {
+    display: block; /* Makes timestamp a block element to appear on its own line. */
+    font-size: 0.75em; /* Smaller font size for timestamps. */
+    color: #888; /* Light gray text color. */
+    margin-top: 5px; /* Space above timestamp. */
+    text-align: right; /* Aligns timestamp to the right within its bubble. */
+}
+
+.message-bubble.received .message-timestamp {
+    text-align: left; /* Overrides for received messages, aligning timestamp to the left. */
+}
+
+.no-messages {
+    text-align: center; /* Centers the "no messages" text. */
+    color: #666; /* Medium gray text. */
+    margin-top: 20px; /* Space above. */
+}
+
+.message-form {
+    display: flex; /* Enables Flexbox for the message input form. */
+    padding: 15px 20px; /* Padding around the input and button. */
+    border-top: 1px solid #eee; /* Top border separating from messages. */
+    background-color: #f9f9f9; /* Light background for the form. */
+    border-bottom-left-radius: 10px; /* Rounds bottom-left corner. */
+    border-bottom-right-radius: 10px; /* Rounds bottom-right corner. */
+}
+
+.message-form textarea {
+    flex-grow: 1; /* Allows the textarea to expand and fill available width. */
+    padding: 10px; /* Padding inside textarea. */
+    border: 1px solid #ddd; /* Light gray border. */
+    border-radius: 5px; /* Rounded corners. */
+    resize: none; /* Disables manual resizing of the textarea by the user. */
+    min-height: 40px; /* Minimum height for textarea. */
+    max-height: 80px; /* Maximum height to prevent it from becoming too large. */
+    margin-right: 10px; /* Space to the right of the textarea (before the button). */
+}
+
+.message-form button {
+    background-color: #007bff; /* Standard blue button. */
+    color: white; /* White text. */
+    border: none; /* No border. */
+    padding: 10px 20px; /* Padding inside. */
+    border-radius: 5px; /* Rounded corners. */
+    cursor: pointer; /* Pointer cursor. */
+    font-size: 1em; /* Standard font size. */
+    transition: background-color 0.3s ease; /* Smooth transition. */
+}
+
+.message-form button:hover {
+    background-color: #0056b3; /* Darker blue on hover. */
+}
+
+/* ------------------------------- */
+/* HOMEPAGE CHATLIST STYLING       */
+/* ------------------------------- */
+/* Basic Chat List Styling */
+.chat-list-container {
+    max-width: 900px; /* Max width for the chat list container. */
+    margin: 40px auto; /* Centers the container with vertical margins. */
+    background-color: #fff; /* White background. */
+    border-radius: 10px; /* Rounded corners. */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Soft shadow. */
+    padding: 30px; /* Padding inside the container. */
+}
+
+.chat-list-container h1 {
+    text-align: center; /* Centers the heading. */
+    color: #005c99; /* Primary blue color for the heading. */
+    margin-bottom: 30px; /* Space below heading. */
+    font-size: 2.2em; /* Larger font size. */
+}
+
+.conversation-list {
+    display: flex; /* Enables Flexbox for conversation items. */
+    flex-direction: column; /* Stacks items vertically. */
+    gap: 15px; /* Space between conversation items. */
+}
+
+.conversation-item {
+    display: flex; /* Enables Flexbox for each conversation item. */
+    flex-direction: column; /* Stacks content within the item vertically. */
+    padding: 15px 20px; /* Padding inside the item. */
+    background-color: #f9f9f9; /* Light background. */
+    border-radius: 8px; /* Rounded corners. */
+    text-decoration: none; /* Removes underline from the link. */
+    color: #333; /* Dark gray text. */
+    transition: background-color 0.2s ease, transform 0.2s ease; /* Smooth transitions on hover. */
+    border: 1px solid #eee; /* Light border. */
+}
+
+.conversation-item:hover {
+    background-color: #eef7ff; /* Lighter blue background on hover. */
+    transform: translateY(-2px); /* Slightly lifts the item on hover for a subtle effect. */
+}
+
+.other-party-info {
+    display: flex; /* Enables Flexbox to arrange name and timestamp. */
+    justify-content: space-between; /* Puts name on left, timestamp on right. */
+    align-items: center; /* Vertically aligns items. */
+    margin-bottom: 5px; /* Space below this info line. */
+}
+
+.other-party-info h3 {
+    margin: 0; /* Removes default margin. */
+    font-size: 1.2em; /* Slightly larger font. */
+    color: #005c99; /* Primary blue. */
+}
+
+.last-message-time {
+    font-size: 0.85em; /* Smaller font size. */
+    color: #888; /* Light gray text. */
+}
+
+.last-message-content {
+    margin: 0; /* Removes default margin. */
+    font-size: 0.95em; /* Standard font size. */
+    color: #666; /* Medium gray text. */
+    white-space: nowrap; /* Prevents text from wrapping to the next line. */
+    overflow: hidden; /* Hides overflowing text. */
+    text-overflow: ellipsis; /* Displays an ellipsis (...) for truncated text. */
+}
+
+.no-conversations {
+    text-align: center; /* Centers text. */
+    padding: 50px 20px; /* Padding inside the box. */
+    font-size: 1.1em; /* Slightly larger font. */
+    color: #777; /* Medium gray text. */
+    background-color: #f0f4f8; /* Light background. */
+    border-radius: 8px; /* Rounded corners. */
+}
+
+/* ------------------------------- */
+/* Login/Register Forms Styles     */
+/* ------------------------------- */
+
+/* Main container for login and registration forms. This is the "wrapper" or "project" box. */
+.project {
+    width: 400px; /* Default width of the form container. */
+    height: 440px; /* Default height of the form container. */
+    background: #005c99; /* A dark blue background color. */
+    color: #fff; /* White text color inside the container. */
+    border-radius: 10px; /* Slightly rounded corners for the container. */
+    border: 2px solid rgba(255, 255, 255, .2); /* A semi-transparent white border. */
+    backdrop-filter: blur(20px); /* Applies a blur effect to content behind the container. */
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2); /* A subtle shadow for depth. */
+    display: flex; /* Enables Flexbox for internal alignment of form boxes. */
+    justify-content: center; /* Centers content horizontally within the container. */
+    align-items: center; /* Centers content vertically within the container. */
+    transition: height 0.5s ease; /* Smooth transition for height changes (e.g., when forms expand). */
+    overflow: hidden; /* Hides any content that overflows the container boundaries. */
+    margin: 50px auto; /* Centers the container horizontally on the page with a 50px top/bottom margin. */
+}
+
+/* Client Registration Form Width Adjustment */
+/* This rule applies to the '.project' container when it has both 'active' and is used for client forms. */
+.project.active {
+    width: 450px; /* Increased width for the client registration form to accommodate more content. */
+    height: 530px; /* Increased height for the client registration form. */
+}
+
+/* This class is likely used to hide the whole popup, scaling it to zero. */
+.project.active-popup {
+    transform: scale(0); /* Scales the entire container down to zero, effectively hiding it. */
+}
+
+/* Styling for the login form box within the '.project' container. */
+.project .form-box.login {
+    transition: transform .18s ease; /* Smooth transition for horizontal movement. */
+    transform: translateX(0); /* Default position: no horizontal offset. */
+}
+
+/* When the '.project' container is active, slide the login form out of view to the left. */
+.project.active .form-box.login {
+    transition: none; /* Disables transition for instant hiding (or delayed based on overall JS). */
+    transform: translateX(-450px); /* Moves the login form entirely to the left, out of the container. */
+}
+
+/* Styling for the registration form box within the '.project' container. */
+.project .form-box.register {
+    position: absolute; /* Positions the registration form absolutely within its parent '.project'.
+                           This is crucial for the sliding animation to work independently. */
+    transition: none; /* Disables transition by default. */
+    /* Moves the registration form initially to the right, outside the visible area of the container. */
+    transform: translateX(450px); 
+}
+
+/* When the '.project' container is active, slide the registration form into view. */
+.project.active .form-box.register {
+    transition: transform .18s ease; /* Smooth transition for sliding into view. */
+    transform: translateX(0); /* Moves the registration form to its active (visible) position. */
+}
+
+/* General styling for all form boxes within the '.project' container. */
+.project .form-box {
+    width: 100%; /* Makes the form box take up the full width of its parent (.project). */
+    padding: 40px; /* Adds padding inside the form box. */
+}
+
+/* Styling for headings within any form box. */
+.form-box h1 {
+    font-size: 36px; /* Large font size for form titles (e.g., "Register", "Login"). */
+    text-align: center; /* Centers the text. */
+}
+
+/* Styling for a close icon, typically found in a popup. */
+.project .icon-close {
+    position: absolute; /* Positions the icon absolutely within its parent (.project). */
+    top: 0; /* Aligns to the top edge. */
+    right: 0; /* Aligns to the right edge. */
+    width: 45px; /* Fixed width. */
+    height: 45px; /* Fixed height. */
+    background: lightgreen; /* Light green background. */
+    font-size: 2em; /* Larger font size for the icon itself. */
+    color: #fff; /* White icon color. */
+    text-align: center; /* Centers the icon content. */
+}
+
+/* Styling for input field containers. */
+.input-box {
+    width: 100%; /* Full width for the input box. */
+    height: 50px; /* Fixed height. */
+    position: relative; /* Allows absolute positioning of child elements (like icons). */
+    margin: 30px 0; /* Adds vertical spacing between input boxes. */
+}
+
+/* Styling for actual input fields (text, password, email). */
+.input-box input {
+    width: 100%; /* Input field fills its parent container. */
+    height: 100%; /* Input field fills the height of its parent. */
+    background: transparent; /* Transparent background. */
+    border: none; /* Removes default border. */
+    outline: none; /* Removes outline on focus. */
+    border: 2px solid rgba(255, 255, 255, .2); /* A semi-transparent white border. */
+    border-radius: 40px; /* Highly rounded corners for a pill-like shape. */
+    font-size: 16px; /* Font size of input text. */
+    color: #fff; /* White text color for input. */
+    padding: 20px 45px 20px 20px; /* Padding: top, right (for icon), bottom, left. */
+}
+
+/* Styling for input field placeholders. */
+.input-box input::placeholder {
+    color: #fff; /* White color for placeholder text. */
+}
+
+/* Styling for general icons within an input box. */
+.input-box .icon {
+    position: absolute; /* Positions the icon absolutely within its input box. */
+    right: 8px; /* Offset from the right edge. */
+    font-size: 1.2em; /* Font size of the icon. */
+    line-height: 57px; /* Adjusts vertical alignment of the icon. */
+}
+
+/* Styling for specific `<i>` elements (likely for icons like Font Awesome). */
+.input-box i {
+    position: absolute; /* Positions the icon absolutely. */
+    right: 20px; /* Offset from the right. */
+    top: 50%; /* Vertically centers the icon. */
+    transform: translateY(-50%); /* Adjusts vertical centering precisely. */
+    font-size: 20px; /* Font size of the icon. */
+}
+
+/* Styling for "Remember Me" and "Forgot Password" links container. */
+.remember-forgot {
+    display: flex; /* Enables Flexbox to arrange items horizontally. */
+    justify-content: space-between; /* Puts "remember me" on left, "forgot" on right. */
+    font-size: 15px; /* Font size. */
+    margin: -15px 5px 15px; /* Adjusts vertical spacing and slight horizontal offset. */
+}
+
+/* Styling for checkbox within remember-forgot label. */
+.remember-forgot label input {
+    accent-color: #fff; /* Changes the color of the checkbox itself (for supported browsers). */
+    margin-right: 3px; /* Space to the right of the checkbox. */
+}
+
+/* Styling for links within remember-forgot section. */
+.remember-forgot a {
+    color: #fff; /* White link color. */
+    text-decoration: none; /* No underline. */
+}
+
+.remember-forgot a:hover {
+    text-decoration: underline; /* Underline on hover. */
+}
+
+/* General button styling for forms. */
+.btn {
+    width: 100%; /* Button takes full width of its parent. */
+    height: 45px; /* Fixed height. */
+    background: #fff; /* White background. */
+    border: none; /* No border. */
+    outline: none; /* No outline on focus. */
+    border-radius: 40px; /* Highly rounded corners. */
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1); /* Subtle shadow. */
+    cursor: pointer; /* Pointer cursor on hover. */
+    font-size: 16px; /* Font size. */
+    color: #333; /* Dark gray text color. */
+    font-weight: 600; /* Semi-bold text. */
+}
+
+/* Styling for "Login/Register" or "Already have an account?" links section. */
+.login-Register {
+    font-size: 15px; /* Font size. */
+    text-align: center; /* Centers the text. */
+    margin: 20px 0 15px; /* Vertical margin. */
+}
+
+/* Styling for links within the login-Register section. */
+.login-Register p a {
+    color: #fff; /* White link color. */
+    text-decoration: none; /* No underline. */
+    font-weight: 600; /* Semi-bold text. */
+}
+
+.login-Register p a:hover {
+    text-decoration: underline; /* Underline on hover. */
+}
+
+/* Specific styling for new text area and select box input containers in forms */
+.input-box.text-area-box,
+.input-box.select-box {
+    height: auto; /* Allows height to adjust dynamically based on content or specific rules. */
+    margin: 20px 0; /* Adds vertical margin. */
+}
+
+/* Styling for textarea elements within an input box. */
+.input-box textarea {
+    width: 100%; /* Textarea takes full width. */
+    height: 120px; /* Fixed initial height for textarea. */
+    background: transparent; /* Transparent background. */
+    border: 2px solid rgba(255, 255, 255, .2); /* Semi-transparent white border. */
+    border-radius: 10px; /* Slightly less rounded than standard inputs. */
+    font-size: 16px; /* Font size. */
+    color: #fff; /* White text color. */
+    padding: 10px 20px; /* Padding inside textarea. */
+    resize: vertical; /* Allows user to vertically resize the textarea. */
+    outline: none; /* Removes outline on focus. */
+    min-height: 80px; /* Minimum height textarea can be resized to. */
+    max-height: 200px; /* Maximum height textarea can be resized to. */
+}
+
+/* Styling for textarea placeholders. */
+.input-box textarea::placeholder {
+    color: #fff; /* White placeholder text. */
+}
+
+/* Styling for select (dropdown) elements within an input box. */
+.input-box select {
+    width: 100%; /* Select element takes full width. */
+    height: 50px; /* Standard height for select. */
+    background: transparent; /* Transparent background. */
+    border: none; /* No border. */
+    outline: none; /* No outline on focus. */
+    border: 2px solid rgba(255, 255, 255, .2); /* Semi-transparent white border. */
+    border-radius: 40px; /* Highly rounded corners. */
+    font-size: 16px; /* Font size. */
+    color: #fff; /* White text color. */
+    padding: 0 45px 0 20px; /* Padding, with space on right for custom arrow. */
+    appearance: none; /* Removes default browser-specific dropdown arrow. */
+    -webkit-appearance: none; /* For Webkit browsers. */
+    -moz-appearance: none; /* For Mozilla browsers. */
+    cursor: pointer; /* Pointer cursor on hover. */
+    /* Adds a custom SVG-based dropdown arrow. */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ffffff' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; /* Prevents arrow from repeating. */
+    background-position: right 15px center; /* Positions arrow to the right. */
+    background-size: 1.2em; /* Sizes the arrow. */
+}
+
+/* Styling for options within a select dropdown. */
+.input-box select option {
+    background-color: #005c99; /* Dark blue background for dropdown options. */
+    color: #fff; /* White text color for options. */
+}
+
+/* Adjust icon position specifically for textarea and select elements. */
+.input-box.text-area-box i,
+.input-box.select-box i {
+    top: 20px; /* Adjusts vertical position to align with the different height/padding of textarea/select. */
+    transform: translateY(0); /* Resets vertical transform if any inherited. */
+}
+
+/* Client Profile Container (used in client_profile.html) */
+.client-profile-container {
+    max-width: 900px; /* Limits the maximum width of the client profile container. */
+    margin: 40px auto; /* Centers the container horizontally with vertical margins. */
+    background-color: #f0f0f0; /* Light gray background. */
+    border-radius: 20px; /* More rounded corners. */
+    padding: 40px; /* Padding inside. */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow. */
+}
+
+/* Header Section within Client Profile */
+.client-profile-container h1 {
+    font-size: 32px; /* Large font size for heading. */
+    margin-bottom: 10px; /* Space below heading. */
+    color: #333; /* Dark gray text. */
+}
+
+.client-profile-container p {
+    font-size: 18px; /* Font size for paragraphs. */
+    color: #666; /* Medium gray text. */
+    margin-bottom: 30px; /* Space below paragraphs. */
+}
+
+/* Saved Companies Section Heading */
+.saved-companies h2 {
+    font-size: 24px; /* Font size for section heading. */
+    margin-bottom: 20px; /* Space below heading. */
+    color: #444; /* Darker gray text. */
+}
+
+/* Grid layout for Saved Companies */
+.company-grid {
+    display: grid; /* Enables CSS Grid layout. */
+    /* Creates responsive columns: automatically fits as many columns as possible,
+       each at least 250px wide, growing to fill available space. */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+    gap: 20px; /* Space between grid items (company cards). */
+}
+
+/* Individual Company Card (re-using general .company-card style, but can be
+   further tweaked here for grid-specific needs if desired). */
+.company-card { 
+    background-color: #ffffff; /* White background. */
+    margin: 10px; /* Vertical margin. Consider if this margin is redundant with `gap` on parent. */
+    border-radius: 12px; /* Rounded corners. */
+    padding: 20px; /* Padding inside. */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* Subtle shadow. */
+    transition: transform 0.2s ease; /* Smooth transform on hover. */
+}
+
+.company-card:hover {
+    transform: translateY(-4px); /* Lifts the card slightly on hover. */
+}
+
+.company-link {
+    text-decoration: none; /* Removes underline. */
+    color: inherit; /* Inherits text color. */
+    display: block; /* Makes the entire card clickable. */
+}
+
+.company-card h3 {
+    font-size: 20px; /* Font size for company name. */
+    margin-bottom: 10px; /* Space below name. */
+    color: #222; /* Dark text. */
+}
+
+.company-card p {
+    font-size: 16px; /* Font size for paragraphs. */
+    color: #555; /* Medium gray text. */
+}
+
+/* Main container styling for the About Us page */
+body.about-page main {
+    background-color: #4e8eb9; /* A specific light blue background for the about page's main content. */
+    padding-top: 40px; /* Padding at the top. */
+    padding-bottom: 40px; /* Padding at the bottom. */
+    margin: 0; /* Removes external margins. */
+    max-width: none; /* Allows the main content to span full width. */
+    box-sizing: border-box; /* Includes padding and border in width/height. */
+}
+.about-wrapper {
+    max-width: 900px; /* Max width for the content wrapper on the about page. */
+    margin: 40px auto; /* Centers the wrapper horizontally with vertical margins. */
+    background: #005c99; /* Dark blue background for the wrapper. */
+    color: #fff; /* White text. */
+    padding: 40px; /* Padding inside. */
+    border-radius: 15px; /* Rounded corners. */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Prominent shadow. */
+}
+
+/* Main heading styling on the About Us page */
+.about-wrapper h1 {
+    font-size: 42px; /* Large font size. */
+    text-align: center; /* Centers text. */
+    margin-bottom: 30px; /* Space below. */
+    border-bottom: 2px solid #fff; /* White bottom border. */
+    padding-bottom: 10px; /* Padding below text and above border. */
+}
+
+/* Each section inside the about page */
+.about-section {
+    margin-bottom: 35px; /* Space below each section. */
+}
+
+/* Section headers within the About Us page */
+.about-section h2 {
+    font-size: 26px; /* Font size. */
+    margin-bottom: 10px; /* Space below. */
+    color: #ffd700; /* Golden yellow accent color. */
+}
+
+/* Paragraph styling on the About Us page */
+.about-section p {
+    font-size: 17px; /* Font size. */
+    line-height: 1.6; /* Line height for readability. */
+}
+
+/* Unordered list for values on About Us page */
+.about-section ul {
+    padding-left: 20px; /* Indentation for list items. */
+    list-style-type: square; /* Square bullet points. */
+}
+
+/* List items for values on About Us page */
+.about-section li {
+    margin-bottom: 10px; /* Space between list items. */
+    font-size: 16px; /* Font size. */
+}
+
+/* Container for "Need Help?" section */
+.need-help-container {
+    text-align: center; /* Centers content. */
+    padding: 50px; /* Padding inside. */
+    background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white background. */
+    border-radius: 10px; /* Rounded corners. */
+    margin-top: 30px; /* Space above. */
+}
+
+.need-help-container h2 {
+    font-size: 28px; /* Font size. */
+    margin-bottom: 10px; /* Space below. */
+}
+
+.need-help-container p {
+    font-size: 16px; /* Font size. */
+    margin: 5px 0; /* Vertical margin. */
+}
+
+.need-help-container strong {
+    font-weight: bold; /* Bold text for strong elements. */
+}
+
+/* Fun quote box styling */
+.fun-quote {
+    margin-top: 40px; /* Space above. */
+    font-style: italic; /* Italic text. */
+    font-size: 18px; /* Font size. */
+    text-align: center; /* Centers text. */
+    background: rgba(255, 255, 255, 0.1); /* Semi-transparent white background. */
+    padding: 15px; /* Padding inside. */
+    border-radius: 10px; /* Rounded corners. */
+    color: #ffd700; /* Golden yellow text. */
+}
+
+/* Flash Messages Styling (for temporary notifications) */
+.flash-messages-container {
+    position: fixed; /* Fixes the container to the viewport, so it stays visible while scrolling. */
+    top: 70px; /* Positions it 70px from the top (adjust based on your header height). */
+    left: 50%; /* Starts at 50% from the left. */
+    transform: translateX(-50%); /* Moves it back by half its own width to perfectly center it horizontally. */
+    width: 80%; /* Takes up 80% of the viewport width. */
+    max-width: 600px; /* Caps the maximum width for readability on large screens. */
+    z-index: 1000; /* Ensures it appears on top of almost all other content. */
+    padding: 10px; /* Internal padding. */
+    box-sizing: border-box; /* Includes padding in width. */
+    pointer-events: none; /* Allows mouse events (like clicks) to pass through the container,
+                             unless there are interactive elements specifically within a flash message. */
+}
+
+.flash-message {
+    padding: 15px 20px; /* Padding inside the message box. */
+    margin-bottom: 10px; /* Space between multiple flash messages if they appear. */
+    border-radius: 5px; /* Rounded corners. */
+    font-weight: bold; /* Bold text. */
+    color: #fff; /* White text. */
+    text-align: center; /* Centers the message text. */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Subtle shadow. */
+    opacity: 0.95; /* Slightly transparent. */
+    transition: opacity 0.3s ease-in-out; /* Smooth transition for fading in/out. */
+}
+
+/* Specific colors for different flash message categories */
+.flash-success {
+    background-color: #28a745; /* Green for success messages. */
+}
+
+.flash-danger {
+    background-color: #dc3545; /* Red for danger/error messages. */
+}
+
+.flash-info {
+    background-color: #17a2b8; /* Blue for informational messages. */
+}
+
+.flash-warning {
+    background-color: #ffc107; /* Orange/Yellow for warning messages. */
+    color: #333; /* Darker text for better contrast on warning color. */
+}
+
+/* Optional: Styling for a close button within flash messages (if implemented in HTML). */
+.flash-message .close-btn {
+    float: right; /* Floats the button to the right. */
+    font-size: 1.2em; /* Larger font size for the close icon/text. */
+    cursor: pointer; /* Pointer cursor on hover. */
+    line-height: 1; /* Adjusts vertical alignment. */
+    margin-left: 10px; /* Space to the left of the button. */
+}
+.flash-message .close-btn:hover {
+    opacity: 0.8; /* Slightly reduces opacity on hover. */
+}
+
+/* About Us Page Specific Styling (secondary container) */
+.about-page-content {
+    background-color: rgba(255, 255, 255, 0.1); /* A semi-transparent background, building on the body.about-page main. */
+    padding: 30px; /* Internal padding. */
+    border-radius: 8px; /* Rounded corners. */
+    margin: 20px auto; /* Centers content with vertical margins. */
+    max-width: 800px; /* Max width for readability. */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow. */
+}
+
+/* --- New Styles for login_choice.html (where users pick client/company login) --- */
+.login-choice-container {
+    display: flex; /* Enables Flexbox. */
+    flex-direction: column; /* Stacks items vertically. */
+    align-items: center; /* Centers items horizontally. */
+    justify-content: center; /* Centers items vertically. */
+    min-height: 60vh; /* Takes up at least 60% of the viewport height. */
+    text-align: center; /* Centers text. */
+    padding: 20px; /* Padding inside. */
+}
+
+.login-choice-container h1 {
+    font-size: 2.5em; /* Large font size for heading. */
+    color: #005c99; /* Primary blue color. */
+    margin-bottom: 20px; /* Space below heading. */
+}
+
+.login-choice-container p {
+    font-size: 1.1em; /* Slightly larger font. */
+    color: #555; /* Medium gray text. */
+    margin-bottom: 40px; /* More space below paragraph. */
+}
+
+.choice-buttons {
+    display: flex; /* Enables Flexbox for the choice cards (client/company). */
+    flex-wrap: wrap; /* Allows cards to wrap to the next line on smaller screens. */
+    gap: 30px; /* Space between the choice cards. */
+    justify-content: center; /* Centers the cards horizontally. */
+    width: 100%; /* Takes full width. */
+    max-width: 800px; /* Max width for the button container. */
+}
+
+.choice-btn {
+    flex: 1; /* Allows buttons to grow and shrink proportionally. */
+    min-width: 280px; /* Minimum width for each choice card. */
+    max-width: 350px; /* Maximum width for each choice card. */
+    background-color: #ffffff; /* White background. */
+    padding: 40px 20px; /* Ample padding inside. */
+    border-radius: 15px; /* Rounded corners. */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Soft shadow. */
+    text-decoration: none; /* Removes underline. */
+    color: #333; /* Dark gray text. */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions for hover effects. */
+    display: flex; /* Enables Flexbox for content inside button. */
+    flex-direction: column; /* Stacks content vertically. */
+    align-items: center; /* Centers content horizontally. */
+    text-align: center; /* Centers text. */
+}
+
+.choice-btn:hover {
+    transform: translateY(-5px); /* Lifts the button slightly on hover. */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* More prominent shadow on hover. */
+}
+
+.choice-btn h2 {
+    font-size: 1.8em; /* Larger font size. */
+    color: #005c99; /* Primary blue. */
+    margin-bottom: 15px; /* Space below heading. */
+}
+
+.choice-btn p {
+    font-size: 1em; /* Standard font size. */
+    color: #666; /* Medium gray text. */
+    margin-bottom: 0; /* Removes default paragraph margin. */
+}
+
+/* --- Specific Adjustments for company_login.html registration container and login form hiding --- */
+
+/* This rule applies to the main `.project` container when it is active and specifically for company registration. */
+.project.active.project-company-register {
+    height: 700px; /* Sets a new height for the company registration form container. */
+    width: 500px; /* Sets a new width for the company registration form container. */
+    /* Note: Positioning (top, left, transform) rules are NOT repeated here;
+             the global .project rule with `margin: auto` handles centering. */
+}
+
+/* Styling for the register form box within the '.project' container. */
+.project .form-box.register {
+    position: absolute; /* Keeps the form box absolutely positioned for sliding. */
+    transition: none; /* No transition for its initial hidden state. */
+    /* Moves the company register form off-screen to the right initially.
+       The value (500px) should match the width of the .project-company-register.active container. */
+    transform: translateX(500px); 
+    
+    /* Increased dimensions for the registration form content itself. */
+    width: 450px; /* Increased width to fit more content. */
+    height: auto; /* Allows height to adjust dynamically based on content. */
+    max-height: 700px; /* Sets a maximum height to prevent excessive scrolling. */
+    overflow-y: auto; /* Enables vertical scrollbar if content exceeds max height. */
+    padding-right: 15px; /* Adds padding on the right to prevent content from being hidden by scrollbar. */
+}
+
+/* Adjusted translateX for company login form to hide completely when company register is active. */
+/* This rule applies specifically when the `.project` container has both 'active' and 'project-company-register' classes. */
+.project.active.project-company-register .form-box.login {
+    transition: none; /* Disables transition for instant hiding. */
+    /* Moves the company login form completely off-screen to the left when the register form slides in. */
+    transform: translateX(-500px); 
+}
+
+/* Ensures the register form slides into view smoothly when the `.project` is active. */
+/* This overrides the `transition: none` from the default `.form-box.register` state. */
+.project.active .form-box.register {
+    transition: transform .18s ease; /* Smooth transition for sliding the register form into view. */
+    transform: translateX(0); /* Moves the register form to its visible, centered position. */
+}
+
+/* General styling for input-box containers that hold text areas or select elements. */
+/* Note: These rules are likely duplicates of rules defined earlier in the CSS.
+   It's generally best practice to define them once to avoid redundancy. */
+.input-box.text-area-box,
+.input-box.select-box {
+    height: auto; /* Allows height to adjust based on content/specific rules. */
+    margin: 20px 0; /* Vertical margin. */
+}
+
+/* Styling for textarea elements within an input box. */
+/* Note: Duplicate, keep one definition. */
+.input-box textarea {
+    width: 100%; /* Full width. */
+    height: 120px; /* Fixed height. */
+    background: transparent; /* Transparent background. */
+    border: 2px solid rgba(255, 255, 255, .2); /* Border. */
+    border-radius: 10px; /* Rounded corners. */
+    font-size: 16px; /* Font size. */
+    color: #fff; /* White text. */
+    padding: 10px 20px; /* Padding. */
+    resize: vertical; /* Vertical resize enabled. */
+    outline: none; /* No outline. */
+    min-height: 80px; /* Min height. */
+    max-height: 200px; /* Max height. */
+}
+
+/* Placeholder styling for textarea. */
+/* Note: Duplicate, keep one definition. */
+.input-box textarea::placeholder {
+    color: #fff; /* White placeholder text. */
+}
+
+/* Styling for select (dropdown) elements within an input box. */
+/* Note: Duplicate, keep one definition. */
+.input-box select {
+    width: 100%; /* Full width. */
+    height: 50px; /* Fixed height. */
+    background: transparent; /* Transparent background. */
+    border: none; /* No border. */
+    outline: none; /* No outline. */
+    border: 2px solid rgba(255, 255, 255, .2); /* Border. */
+    border-radius: 40px; /* Rounded corners. */
+    font-size: 16px; /* Font size. */
+    color: #fff; /* White text. */
+    padding: 0 45px 0 20px; /* Padding. */
+    appearance: none; /* Removes default arrow. */
+    -webkit-appearance: none; /* For Webkit. */
+    -moz-appearance: none; /* For Mozilla. */
+    cursor: pointer; /* Pointer cursor. */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ffffff' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E"); /* Custom SVG arrow. */
+    background-repeat: no-repeat; /* No repeat. */
+    background-position: right 15px center; /* Position. */
+    background-size: 1.2em; /* Size. */
+}
+
+/* Option styling for select dropdown. */
+/* Note: Duplicate, keep one definition. */
+.input-box select option {
+    background-color: #005c99; /* Dark blue background. */
+    color: #fff; /* White text. */
+}
+
+/* Adjust icon position for textarea and select. */
+/* Note: Duplicate, keep one definition. */
+.input-box.text-area-box i,
+.input-box.select-box i {
+    top: 20px; /* Adjust top. */
+    transform: translateY(0); /* No vertical transform. */
+}

@@ -1,0 +1,61 @@
+{# app/templates/chat_list.html #}
+{% extends 'base.html' %} {# This line indicates that this HTML file (chat_list.html)
+                            inherits from and extends the 'base.html' template. This provides
+                            a consistent site structure including the header, navigation,
+                            and basic scripts for all pages. #}
+
+{% block title %}{{ title }}{% endblock %} {# This block dynamically sets the browser
+                                            tab title for the chat list page, using the `title`
+                                            variable passed from the Flask route (e.g., "Your Chats"). #}
+
+{% block content %} {# This is the main content block where the list of conversations is displayed. #}
+<div class="chat-list-container">
+    <h1>{{ title }}</h1> {# Displays the main heading for the chat list page. #}
+
+    {% if conversations %} {# Jinja2 conditional: Checks if the `conversations` list (passed from the Flask route) is not empty. #}
+        <div class="conversation-list">
+            {% for convo in conversations %} {# Jinja2 loop: Iterates through each `convo` (conversation) object in the list. #}
+                {# Each conversation item is a clickable link that navigates to the specific chat.
+                   `convo.chat_url` is the pre-generated URL for that conversation. #}
+                <a href="{{ convo.chat_url }}" class="conversation-item">
+                    <div class="other-party-info">
+                        {# Displays the name of the other participant in the conversation. #}
+                        <h3>
+                            {% if current_user.is_client %} {# If the current user is a client, the other party is a Company. #}
+                                {# Displays the company's name, with a fallback to 'Unknown Company' if the name is not available. #}
+                                {{ convo.other_party.name if hasattr(convo.other_party, 'name') and convo.other_party.name else 'Unknown Company' }}
+                            {% else %} {# If the current user is a company, the other party is a Client. #}
+                                {# Displays the client's name using `other_party_display_name` which is prepared in the Flask route,
+                                   handling potential missing name/username. #}
+                                {{ convo.other_party_display_name }}
+                            {% endif %}
+                        </h3>
+                        {# Displays the timestamp of the last message in the conversation, formatted. #}
+                        <span class="last-message-time">{{ convo.last_message.timestamp.strftime('%Y-%m-%d %H:%M') if convo.last_message else '' }}</span>
+                    </div>
+                    <p class="last-message-content">
+                        {% if convo.last_message %} {# Conditional: Checks if there's a last message to display. #}
+                            {# Checks if the last message was sent by the current user. #}
+                            {% if convo.last_message.sender_client_id == current_user.client_id or convo.last_message.sender_company_id == current_user.company_id %}
+                                {# If sent by current user, prepend "You: " to the message content, truncated to 50 characters. #}
+                                You: {{ convo.last_message.content | truncate(50, True, '...') }}
+                            {% else %}
+                                {# If received by current user, display the other party's name followed by their message content, truncated. #}
+                                {% if current_user.is_client %} {# If client, show company name. #}
+                                    {{ convo.other_party.name if hasattr(convo.other_party, 'name') and convo.other_party.name else 'Unknown Company' }}
+                                {% else %} {# If company, show client name. #}
+                                    {{ convo.other_party_display_name }}
+                                {% endif %}: {{ convo.last_message.content | truncate(50, True, '...') }}
+                            {% endif %}
+                        {% else %} {# If there's no last message for this conversation. #}
+                            No messages yet.
+                        {% endif %}
+                    </p>
+                </a>
+            {% endfor %}
+        </div>
+    {% else %} {# If the `conversations` list is empty (no active chats). #}
+        <p class="no-conversations">You don't have any active chats yet.</p> {# Message displayed when there are no conversations. #}
+    {% endif %}
+</div>
+{% endblock %}

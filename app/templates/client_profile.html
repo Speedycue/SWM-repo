@@ -1,0 +1,54 @@
+{% extends 'base.html' %} {# This line indicates that this HTML file (client_profile.html)
+                            inherits from and extends the 'base.html' template. This ensures
+                            a consistent layout including the header, navigation, and footer. #}
+
+{% block title %}Client Dashboard - Skilled Worker Marketplace{% endblock %} {# This block
+                                                                         overrides the default
+                                                                         'title' block in base.html,
+                                                                         setting a specific title for the
+                                                                         client's dashboard page. #}
+
+{% block content %} {# This is the main content block for the client profile page. #}
+    <main class="client-dashboard">
+        {% if client %} {# Jinja2 conditional: Checks if the 'client' object (passed from the Flask route) exists.
+                          This ensures the page doesn't try to display data if no client is found. #}
+            <section class="client-info">
+                <h2>Welcome, {{ client.name }}</h2> {# Displays the client's name. #}
+                <p>Email: {{ client.email }}</p> {# Displays the client's email. #}
+                {# Link to the client's profile edit page. `url_for` generates the correct URL
+                   using the `edit_client_profile` route and passes the `client_id`. #}
+                <p><a href="{{ url_for('main.edit_client_profile', client_id=client.client_id) }}" class="button">Edit Profile</a></p>
+            </section>
+
+            <section class="saved-companies">
+                <h3>Saved Companies</h3>
+                <div class="company-cards">
+                    {% if client.saved_companies %} {# Checks if the client has any saved companies. #}
+                        {# Loop through each `SavedCompany` entry associated with this client.
+                           `client.saved_companies` is a relationship that gives you a list of these entries. #}
+                        {% for saved_company_entry in client.saved_companies %} 
+                            {# Set a local variable 'company' to easily access the actual `Company` object
+                               linked through the `saved_company_entry`. This avoids repetitive
+                               `saved_company_entry.company.` prefixes. #}
+                            {% set company = saved_company_entry.company %} 
+                            {# Link to the individual company's profile page. #}
+                            <a href="{{ url_for('main.company_profile', company_id=company.company_id) }}" class="company-link">  
+                                <div class="company-card">
+                                    <h4>{{ company.name }}</h4> {# Displays the saved company's name. #}
+                                    <p>{{ company.description }}</p> {# Displays the saved company's description. #}
+                                </div>
+                            </a>  
+                        {% endfor %}
+                    {% else %}
+                        {# Message displayed if the client has no saved companies. #}
+                        <p>You haven't saved any companies yet.</p>
+                    {% endif %}
+                </div>
+            </section>
+
+        {% else %}
+            {# Message displayed if no client data is available (e.g., if the client_id was invalid). #}
+            <p>Client profile not found. Please log in.</p>
+        {% endif %}
+    </main>
+{% endblock %}

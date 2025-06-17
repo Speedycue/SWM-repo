@@ -1,0 +1,103 @@
+{% extends 'base.html' %} {# This line indicates that this HTML file (company_login.html)
+                            inherits from and extends the 'base.html' template. This provides
+                            a consistent site structure including the header, navigation,
+                            and basic scripts. #}
+
+{% block title %}Company Login / Register - Skilled Worker Marketplace{% endblock %} {# This block
+                                                                                     overrides the default
+                                                                                     'title' in base.html,
+                                                                                     setting a specific title
+                                                                                     for the browser tab for
+                                                                                     the company login/registration page. #}
+
+{% block content %} {# This is the main content block for the company login/registration page. #}
+    <div class="project"> {# This 'project' div acts as the main container for
+                            both the company login and registration forms, handling their
+                            visual toggling (sliding) via CSS and JavaScript. #}
+        
+        {# Company Login Form Box #}
+        <div class="form-box login">
+            <h1>Company Login</h1>
+            {# Form for company login. When submitted, it sends a POST request to the
+               `handle_company_login` route in Flask. #}
+            <form action="{{ url_for('main.handle_company_login') }}" method="POST">
+                <div class ="input-box">
+                    {# Company Email input field. #}
+                    <input type="text" placeholder="Company Email" required name="email">
+                    <i class='bx bxs-user'></i> {# Icon for email field. #}
+                </div>
+                <div class ="input-box">
+                    {# Password input field. #}
+                    <input type="password" placeholder="Password" required name="password">
+                    <i class='bx bxs-lock-alt' ></i> {# Icon for password field. #}
+                </div>
+                <div class ="remember-forgot">
+                    {# Checkbox for "Remember Me" functionality. #}
+                    <label><input type="checkbox" name="remember_me"> Remember-me</label>
+                </div>
+                <button type="submit" class="btn">Login</button> {# Submit button for the login form. #}
+                <div class = "login-Register">
+                    {# Link to switch to the company registration form. The `register-link` class is used by `java.js`
+                       to handle the form toggling. #}
+                    <p>Don't have a company account? <a href="#" class="register-link">Register</a></p>
+                </div>
+            </form>
+        </div>
+
+        {# Company Register Form Box #}
+        <div class="form-box register">
+            <h1>Company Register</h1>
+            {# Form for company registration. When submitted, it sends a POST request to the
+               `handle_company_register` route in Flask. #}
+            <form action="{{ url_for('main.handle_company_register') }}" method="POST">
+                <div class ="input-box">
+                    {# Company Name input field. #}
+                    <input type="text" placeholder="Company Name" required name="name">
+                    <i class='bx bxs-building'></i> {# Icon for company name field. #}
+                </div>
+                <div class ="input-box">
+                    {# Company Email input field for registration. #}
+                    <input type="email" placeholder="Company E-mail" required name="email"> {# `type="email"` provides browser-level email validation. #}
+                    <i class='bx bxs-envelope bx-flip-horizontal' ></i> {# Icon for email field. #}
+                </div>
+                <div class ="input-box">
+                    {# Password input field for registration. #}
+                    <input type="password" placeholder="Password" required name="password">
+                    <i class='bx bxs-lock-alt' ></i> {# Icon for password field. #}
+                </div>
+                <div class ="input-box">
+                    {# Confirm Password input field. #}
+                    <input type="password" placeholder="Confirm-Password" required name="confirm_password">
+                    <i class='bx bxs-lock-alt' ></i> {# Icon for confirm password field. #}
+                </div>
+                {# NEW FIELD: Company Description - A textarea for a longer description of the company/services. #}
+                <div class ="input-box text-area-box">
+                    <textarea placeholder="Tell us about your company/services (max 500 chars)" required name="description" maxlength="500"></textarea>
+                    <i class='bx bxs-info-circle'></i> {# Icon for description. #}
+                </div>
+                {# NEW FIELD: Service Type Dropdown - A select element for choosing the company's service category. #}
+                <div class="input-box select-box">
+                    <select name="service_id" required>
+                        <option value="">Select Service Type</option> {# Default, unselected option. #}
+                        {# Jinja2 loop: Iterates over the 'services' list, which is passed from the Flask route,
+                           to populate the dropdown options. #}
+                        {% for service in services %} 
+                            <option value="{{ service.service_id }}">{{ service.service_name }}</option> {# Each service becomes an option. #}
+                        {% endfor %}
+                    </select>
+                    <i class='bx bxs-wrench'></i> {# Icon for service type. #}
+                </div>
+                <div class ="remember-forgot">
+                    {# Checkbox for agreeing to terms and conditions (required for registration). #}
+                    <label><input type="checkbox" required> I agree the terms and conditions</label>
+                </div>
+                <button type="submit" class="btn">Register Company</button> {# Submit button for company registration. #}
+                <div class="login-Register">
+                    {# Link to switch back to the company login form. The `login-link` class is used by `java.js`. #}
+                    <p>Already have a company account? <a href="#" class="login-link">Login</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+    {# The `java.js` script (loaded in base.html) handles the visual toggling between these forms. #}
+{% endblock %} 

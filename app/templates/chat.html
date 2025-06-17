@@ -1,0 +1,61 @@
+{# app/templates/chat.html #}
+
+{% extends 'base.html' %} {# This line indicates that this HTML file (chat.html) inherits
+                            from and extends the 'base.html' template. This provides a
+                            consistent site structure including the header, navigation,
+                            and basic scripts for all pages. #}
+
+{% block title %}{{ title }}{% endblock %} {# This block dynamically sets the browser
+                                            tab title for the chat page, using the `title`
+                                            variable passed from the Flask route (e.g., "Chat with [Company Name]"). #}
+
+{% block content %} {# This is the main content block where the chat interface HTML is placed. #}
+<div class="chat-container">
+    <div class="chat-header">
+        <h2>Chat with 
+            {% if current_user.is_client %} {# Conditional: If the currently logged-in user is a client. #}
+                {# If the current user is a client, the recipient of the chat is a Company.
+                   `recipient.name` is used to display the company's name. The `hasattr` checks
+                   and `else 'Unknown Company'` provide robustness in case data is missing. #}
+                {{ recipient.name if hasattr(recipient, 'name') and recipient.name else 'Unknown Company' }}
+            {% else %} {# Else, the current user must be a company (since chat is only client-company). #}
+                {# If the current user is a company, the recipient of the chat is a Client.
+                   It tries to display the client's `name` first, then `username` (if it were a field),
+                   otherwise defaults to 'Unknown Client'. #}
+                {{ recipient.name if hasattr(recipient, 'name') and recipient.name else (recipient.username if hasattr(recipient, 'username') and recipient.username else 'Unknown Client') }}
+            {% endif %}
+        </h2>
+    </div>
+
+    <div class="message-list">
+        {% if messages %} {# Conditional: Checks if there are any messages to display in the conversation. #}
+            {% for message in messages %} {# Jinja2 loop: Iterates through each `message` object in the list. #}
+                {# The `message-bubble` div displays each individual message.
+                   The `sent` or `received` class is dynamically added based on whether
+                   the `current_user` is the sender of the message. #}
+                <div class="message-bubble 
+                    {% if (current_user.is_client and message.sender_client_id == current_user.client_id) or (current_user.is_company and message.sender_company_id == current_user.company_id) %}
+                        sent {# Add 'sent' class if the message was sent by the current client OR current company. #}
+                    {% else %}
+                        received {# Otherwise, add 'received' class if the message was received by the current user. #}
+                    {% endif %}">
+                    <p>{{ message.content }}</p> {# Displays the actual text content of the message. #}
+                    {# Displays the timestamp of the message, formatted to Year-Month-Day Hour:Minute. #}
+                    <span class="message-timestamp">{{ message.timestamp.strftime('%Y-%m-%d %H:%M') }}</span>
+                </div>
+            {% endfor %}
+        {% else %} {# If there are no messages in the conversation yet. #}
+            <p class="no-messages">No messages yet. Start the conversation!</p> {# Message displayed when chat is empty. #}
+        {% endif %}
+    </div>
+
+    {# Form for sending a new message. This form sends a POST request back to the
+       same `view_chat` route (handled in the Flask backend). #}
+    <form method="POST" class="message-form">
+        {# Textarea for typing the message content. `name="message_content"` is used
+           by Flask to retrieve the message text. `required` means it cannot be empty. #}
+        <textarea name="message_content" placeholder="Type your message..." required></textarea>
+        <button type="submit">Send</button> {# Button to submit the message. #}
+    </form>
+</div>
+{% endblock %}

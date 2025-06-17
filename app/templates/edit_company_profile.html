@@ -1,0 +1,148 @@
+{% extends 'base.html' %} {# This line indicates that this HTML file (edit_company_profile.html)
+                            inherits from and extends the 'base.html' template. This provides
+                            a consistent site structure including the header, navigation,
+                            and basic scripts. #}
+
+{% block title %}Edit Company Profile - {{ company.name }}{% endblock %} {# This block
+                                                                       overrides the default
+                                                                       'title' in base.html,
+                                                                       setting a specific title
+                                                                       for the browser tab,
+                                                                       dynamically including the company's name. #}
+
+{% block content %} {# This is the main content block for the company's edit profile page. #}
+<div class="edit-profile-container">
+    <h1>Edit Company Profile</h1>
+
+    {# Flash messages display area #}
+    {# This section is included to display any flash messages (e.g., success, error, info)
+       that are sent from Flask routes to the frontend. #}
+    <div class="flash-messages-container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message flash-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    {# The HTML form for editing the company's profile.
+       - `method="POST"` specifies that form data will be sent via a POST request.
+       - `action="{{ url_for('main.edit_company_profile', company_id=company.company_id) }}"`
+         dynamically generates the URL for the form submission. It points to the `edit_company_profile`
+         route in the 'main' blueprint and includes the current company's ID.
+       - `enctype="multipart/form-data"` is crucial because this form will be submitting files (images). #}
+    <form method="POST" action="{{ url_for('main.edit_company_profile', company_id=company.company_id) }}" enctype="multipart/form-data">
+        {# CSRF Token: Add this if you implement CSRF protection manually, or use Flask-WTF #}
+        {# This is a comment block explaining the importance of CSRF tokens for security.
+           In a real application, you'd typically include a hidden input field for CSRF protection
+           to prevent cross-site request forgery attacks. Flask-WTF forms often handle this automatically. #}
+        {# <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"> #}
+
+        <div class="input-group">
+            <label for="name">Company Name:</label> {# Label for the company name input field. #}
+            {# Text input for the company's name. The `value` attribute is pre-filled with the current company's name. #}
+            <input type="text" id="name" name="name" value="{{ company.name }}" required>
+        </div>
+
+        <div class="input-group">
+            <label for="email">Email:</label> {# Label for the email input field. #}
+            {# Email input for the company's email. Pre-filled with the current company's email. #}
+            <input type="email" id="email" name="email" value="{{ company.email }}" required>
+        </div>
+
+        <div class="input-group">
+            <label for="description">Description:</label> {# Label for the description textarea. #}
+            {# Textarea for the company's description. Pre-filled with the current company's description. #}
+            <textarea id="description" name="description" rows="5" required>{{ company.description }}</textarea>
+        </div>
+
+        <div class="input-group">
+            <label for="service_id">Service Type:</label> {# Label for the service type dropdown. #}
+            {# Dropdown for selecting the company's service type. #}
+            <select id="service_id" name="service_id" required>
+                {# Loop through the list of `services` passed from the Flask route to populate the options. #}
+                {% for service in services %}
+                    {# Each service becomes an option. The `selected` attribute is added if the service ID
+                       matches the company's current service ID, making the correct option pre-selected. #}
+                    <option value="{{ service.service_id }}" {% if service.service_id == company.service_id %}selected{% endif %}>
+                        {{ service.service_name }} {# Displays the name of the service. #}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="input-group file-upload-group">
+            <label for="photo_url_file">Main Company Photo:</label> {# Label for main company photo upload. #}
+            {# File input for uploading a new main company photo. `accept="image/*"` restricts to image files. #}
+            <input type="file" id="photo_url_file" name="photo_url_file" accept="image/*">
+            {% if company.photo_url %} {# Conditional: Only show current photo and remove option if a photo exists. #}
+                <p>Current: <img src="{{ url_for('static', filename=company.photo_url) }}" alt="Current main photo" class="current-photo-preview"></p> {# Displays current main photo. #}
+                <div class="checkbox-group">
+                    {# Checkbox to remove the current main photo. `value="1"` will be sent if checked. #}
+                    <input type="checkbox" id="remove_main_photo" name="remove_main_photo" value="1">
+                    <label for="remove_main_photo">Remove Current Main Photo</label>
+                </div>
+                <small>Select new file to replace, or check "Remove" to delete it. New file takes precedence.</small> {# Hint text for user. #}
+            {% else %}
+                <small>No main photo uploaded yet.</small> {# Message if no main photo is set. #}
+            {% endif %}
+        </div>
+
+        <div class="input-group file-upload-group">
+            <label for="gallery_files">Add Gallery Images (multiple):</label> {# Label for gallery image upload. #}
+            {# File input for uploading multiple new gallery images. `multiple` attribute allows selecting multiple files. #}
+            <input type="file" id="gallery_files" name="gallery_files" accept="image/*" multiple>
+            {% if company.gallery_images %} {# Conditional: Only show current gallery and delete options if images exist. #}
+                <p>Current Gallery:</p>
+                <div class="current-gallery-preview">
+                    {# Loop through existing gallery images (split from comma-separated string). #}
+                    {% for image_path in company.gallery_images.split(',') %}
+                        {% if image_path.strip() %} {# Ensures the path is not empty. #}
+                            <div class="gallery-item-wrapper">
+                                {# Displays each current gallery image. #}
+                                <img src="{{ url_for('static', filename=image_path.strip()) }}" alt="Gallery image" class="gallery-preview-item">
+                                <div class="checkbox-group">
+                                    {# Checkbox to mark a gallery image for deletion. `value` is the image path.
+                                       `loop.index` creates unique IDs for each checkbox. #}
+                                    <input type="checkbox" id="delete_gallery_{{ loop.index }}" name="delete_gallery_image" value="{{ image_path.strip() }}">
+                                    <label for="delete_gallery_{{ loop.index }}">Delete</label>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <small>Check "Delete" next to an image to remove it. New images will be added.</small> {# Hint text for user. #}
+            {% else %}
+                <small>No gallery images uploaded yet.</small> {# Message if no gallery images are set. #}
+            {% endif %}
+        </div>
+
+        <hr> {# Horizontal rule as a visual separator for the password section. #}
+
+        <h2>Change Password</h2> {# Heading for the password change section. #}
+        <div class="input-group">
+            <label for="current_password">Current Password (required to save changes):</label> {# Label for current password. #}
+            {# Input field for the current password. This is required for any profile updates as a security measure. #}
+            <input type="password" id="current_password" name="current_password" required>
+            <small>You must enter your current password to save *any* changes to your profile.</small> {# Important security note. #}
+        </div>
+
+        <div class="input-group">
+            <label for="new_password">New Password:</label> {# Label for new password. #}
+            {# Input field for setting a new password. `placeholder` suggests it can be left blank. #}
+            <input type="password" id="new_password" name="new_password" placeholder="Leave blank if not changing">
+            <small>Minimum 6 characters (optional)</small> {# Password requirement hint. #}
+        </div>
+
+        <div class="input-group">
+            <label for="confirm_new_password">Confirm New Password:</label> {# Label for confirming new password. #}
+            {# Input field to re-enter the new password for confirmation. #}
+            <input type="password" id="confirm_new_password" name="confirm_new_password" placeholder="Confirm new password">
+        </div>
+
+        <button type="submit" class="btn auth-btn">Update Profile</button> {# Submit button to update the profile. #}
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends 'base.html' %} {# This line indicates that this HTML file (about.html) inherits
+                            from and extends the 'base.html' template, providing a consistent
+                            header, navigation, and script includes. #}
+
+{% block title %}About Us - Skilled Worker Marketplace{% endblock %} {# This block overrides the default
+                                                                 'title' in base.html, setting the
+                                                                 browser tab title specifically for the About Us page. #}
+
+{% block body_class %}about-page{% endblock %} {# This crucial line adds a CSS class 'about-page'
+                                                to the `<body>` tag of this specific page.
+                                                This allows you to apply unique styles to the
+                                                entire body or specific elements only on the About Us page,
+                                                as seen in `style.css` (e.g., `body.about-page main`). #}
+
+{% block content %} {# This is the main content block for the About Us page. #}
+    <div class="about-wrapper">
+        <h1>About Us</h1>
+    
+        <section class="about-section">
+            <h2>About Oman</h2>
+            <p>
+                Oman, a land of rich heritage and natural beauty, is known for its vibrant culture,
+                warm hospitality, and rapid development. From the bustling souqs to the serene deserts,
+                Oman is not only a traveler’s paradise but also a country filled with potential and ambition.
+                It's this spirit that inspired the creation of our platform—to serve the people of Oman with innovation and ease.
+            </p>
+        </section>
+    
+        <section class="about-section">
+            <h2>Our Team</h2>
+            <p>
+                Behind this platform is a team of passionate and hardworking students from Middle East College with a shared vision:
+                to bring a meaningful change to everyday lives. We’re computer science students driven by creativity,
+                dedication, and the desire to make a difference through technology.
+            </p>
+        </section>
+    
+        <section class="about-section">
+            <h2>About the Website</h2>
+            <p>
+                Our website is a skilled worker marketplace built to connect clients with reliable service providers.
+                Whether you’re looking for a plumber, an electrician, or a carpenter,
+                our goal is to make it simple and efficient for you to find the right help, right from the comfort of your home.
+            </p>
+        </section>
+    
+        <section class="about-section">
+            <h2>Our Mission</h2>
+            <p>
+                To create a reliable, accessible, and user-friendly platform that bridges the gap between clients
+                and skilled workers in Oman—making it easier for everyone to access the services they need,
+                whenever they need them.
+            </p>
+        </section>
+    
+        <section class="about-section">
+            <h2>Our Vision </h2>
+            <p>
+                To become the leading digital platform in Oman that revolutionizes how people find, connect with,
+                and hire skilled professionals, all while supporting local talent and boosting community growth.
+            </p>
+        </section>
+    
+        <section class="about-section">
+            <h2>Our Team & Values</h2>
+            <ul>
+                <li><strong>Teamwork:</strong> We believe in working together, growing together, and solving challenges as one.</li>
+                <li><strong>Innovation:</strong> We aim to build creative solutions that simplify everyday problems.</li>
+                <li><strong>Integrity:</strong> Honesty and transparency are at the heart of what we do.</li>
+                <li><strong>Customer First:</strong> Your satisfaction is our success—everything is designed with you in mind.</li>
+            </ul>
+        </section>
+
+        <div class="fun-quote">
+            <p>“We’re just a bunch of students trying to change the world, one line of code at a time.”</p>
+        </div>
+        
+        <div class="need-help-container">
+            <h2>Need Help?</h2>
+            <p>If you have any questions or need assistance, feel free to reach out to us!</p>
+            <p><strong>Email:</strong> support@swm.com</p>
+            <p><strong>Contact Number:</strong> +968-79889985</p>
+        </div>
+    </div>
+{% endblock %}

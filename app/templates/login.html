@@ -1,0 +1,87 @@
+{% extends 'base.html' %} {# This line indicates that this HTML file (login.html)
+                            inherits from and extends the 'base.html' template.
+                            This provides a consistent site structure including
+                            the header, navigation, and base scripts. #}
+
+{% block title %}Login / Register - Skilled Worker Marketplace{% endblock %} {# This block
+                                                                             overrides the default
+                                                                             'title' in base.html,
+                                                                             setting a specific title
+                                                                             for the browser tab. #}
+
+{% block content %} {# This is the main content block for the client login/registration page. #}
+    <div class="project"> {# This 'project' div acts as the main container for
+                            both the login and registration forms, handling their
+                            visual toggling (sliding) via CSS and JavaScript. #}
+        
+        {# Login Form Box #}
+        <div class="form-box login">
+            <h1>Login</h1>
+            {# Form for client login. When submitted, it sends a POST request to the
+               `handle_login` route in Flask. #}
+            <form action="{{ url_for('main.handle_login') }}" method="POST"> 
+                <div class ="input-box">
+                    {# Email input field. `name="email"` is used by Flask to retrieve this data. #}
+                    <input type="text" placeholder="Username or Email" required name="email"> 
+                    <i class='bx bxs-user'></i> {# Icon for username/email field. #}
+                </div>
+                <div class ="input-box">
+                    {# Password input field. #}
+                    <input type="password" placeholder="Password" required name="password">
+                    <i class='bx bxs-lock-alt' ></i> {# Icon for password field. #}
+                </div>
+                <div class ="remember-forgot">
+                    {# Checkbox for "Remember Me" functionality. `name="remember_me"` is used
+                       to capture its state. #}
+                    <label><input type="checkbox" name="remember_me"> Remember-me</label>
+                    <a href="#">Forgot Password</a> {# Placeholder link for forgot password functionality (needs a Flask route). #}
+                </div>
+                <button type="submit" class="btn">Login</button> {# Submit button for the login form. #}
+                <div class = "login-Register">
+                    {# Link to switch to the registration form. The `register-link` class is used by `java.js`
+                       to handle the form toggling. #}
+                    <p>Don't have an account? <a href="#" class="register-link">Register</a></p>
+                </div>
+            </form>
+        </div>
+
+        {# Register Form Box #}
+        <div class="form-box register">
+            <h1>Register</h1>
+            {# Form for client registration. When submitted, it sends a POST request to the
+               `handle_register` route in Flask. #}
+            <form action="{{ url_for('main.handle_register') }}" method="POST"> 
+                <div class ="input-box">
+                    {# Full Name input field. #}
+                    <input type="text" placeholder="Full Name" required name="name"> 
+                    <i class='bx bxs-user'></i> {# Icon for full name field. #}
+                </div>
+                <div class ="input-box">
+                    {# Email input field for registration. #}
+                    <input type="text" placeholder="E-mail" required name="email">
+                    <i class='bx bxs-envelope bx-flip-horizontal' ></i> {# Icon for email field. #}
+                </div>
+                <div class ="input-box">
+                    {# Password input field for registration. #}
+                    <input type="password" placeholder="Password" required name="password">
+                    <i class='bx bxs-lock-alt' ></i> {# Icon for password field. #}
+                </div>
+                <div class ="input-box">
+                    {# Confirm Password input field. #}
+                    <input type="password" placeholder="Confirm-Password" required name="confirm_password">
+                    <i class='bx bxs-lock-alt' ></i> {# Icon for confirm password field. #}
+                </div>
+                <div class ="remember-forgot">
+                    {# Checkbox for agreeing to terms and conditions (required for registration). #}
+                    <label><input type="checkbox" required> I agree the terms and conditions</label>
+                </div>
+                <button type="submit" class="btn">Register</button> {# Submit button for the registration form. #}
+                <div class="login-Register">
+                    {# Link to switch back to the login form. The `login-link` class is used by `java.js`. #}
+                    <p>Already have an account? <a href="#" class="login-link">Login</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+    {# The `java.js` script (loaded in base.html) handles the visual toggling between these forms. #}
+{% endblock %}

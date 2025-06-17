@@ -1,0 +1,33 @@
+{% extends 'base.html' %} {# This line indicates that this HTML file (login_choice.html)
+                            inherits from and extends the 'base.html' template. This means
+                            it will use the common header, navigation, and footer defined
+                            in base.html. #}
+
+{% block title %}Choose Login Type - Skilled Worker Marketplace{% endblock %} {# This block
+                                                                            overrides the
+                                                                            default 'title'
+                                                                            in base.html,
+                                                                            setting a specific
+                                                                            title for the browser tab
+                                                                            for this page. #}
+
+{% block content %} {# This is the main content block for the login choice page. #}
+    <div class="login-choice-container">
+        <h1>Welcome! Please Choose Your Role</h1> {# Main heading welcoming the user. #}
+        <p>Are you looking to hire professionals or offer your services?</p> {# A descriptive paragraph
+                                                                           prompting the user to select their role. #}
+
+        <div class="choice-buttons">
+            {# Link for clients: When clicked, it directs the user to the client-specific login/registration page. #}
+            <a href="{{ url_for('main.client_login') }}" class="choice-btn">
+                <h2>I'm a Client</h2> {# Heading for the client option. #}
+                <p>Find skilled workers and get your jobs done.</p> {# Description for the client role. #}
+            </a>
+            {# Link for companies/professionals: When clicked, it directs the user to the company-specific login/registration page. #}
+            <a href="{{ url_for('main.company_login') }}" class="choice-btn">
+                <h2>I'm a Company / Professional</h2> {# Heading for the company/professional option. #}
+                <p>Offer your services and connect with clients.</p> {# Description for the company/professional role. #}
+            </a>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,144 @@
+{% extends 'base.html' %} {# This line indicates that this HTML file extends the 'base.html'
+                            template, inheriting its common structure like header, navigation,
+                            and basic scripts. #}
+
+{% block title %}{{ company.name }} Profile - Skilled Worker Marketplace{% endblock %} {# This block
+                                                                                     sets the specific
+                                                                                     title for the browser tab,
+                                                                                     dynamically including the company's name. #}
+
+{% block content %} {# This is the main content area for the company profile page. #}
+    <main class="company-profile">
+        {% if company %} {# Jinja2 conditional: Checks if the 'company' object (passed from the Flask route) exists. #}
+            <h1>{{ company.name }}</h1> {# Displays the company's name as a main heading. #}
+            <p class="about">{{ company.description }}</p> {# Displays the company's description. #}
+
+            <div class="contact-info">
+                <p><strong>Service Type:</strong> {{ company.service.service_name }}</p> {# Displays the service type,
+                                                                                       accessing the 'service_name'
+                                                                                       attribute from the related 'service' object. #}
+                <p><strong>Average Rating:</strong> <span class="rating">{{ company.rating|round(1) }}</span> (Based on {{ company.ratings|length }} reviews)</p> {# Displays the company's average rating (rounded to 1 decimal place) and the total number of reviews. #}
+                <p><strong>Contact Email:</strong> {{ company.email or 'N/A' }}</p> {# Displays the company's email,
+                                                                                   or 'N/A' if the email is not available. #}
+            </div>
+
+            {# Jinja2 conditional: This block ensures the "Edit Profile" link is only visible
+               if the current user is authenticated, is a company, AND their `company_id` matches
+               the `company_id` of the profile being viewed. This is a crucial authorization check. #}
+            {% if current_user.is_authenticated and current_user.is_company and current_user.company_id == company.company_id %}
+            <p class="profile-actions">
+                <a href="{{ url_for('main.edit_company_profile', company_id=company.company_id) }}" class="button">Edit Profile</a> {# Link to the company's edit profile page. #}
+            </p>
+            {% endif %}
+
+            {# Display Company's Main Photo (if any) AND Gallery Photos #}
+            {# Checks if either a main photo URL or any gallery images exist before displaying the "Our Work" section. #}
+            {% if company.photo_url or company.gallery_images %}
+                <section class="gallery">
+                    <h2>Our Work</h2>
+                    <div class="gallery-container">
+                        {# Display main company photo as part of the gallery #}
+                        {# Conditional: Displays the main company photo if `photo_url` is present. #}
+                        {% if company.photo_url %}
+                            <div class="gallery-item">
+                                <img src="{{ url_for('static', filename=company.photo_url) }}" alt="Main image of {{ company.name }}">
+                            </div>
+                        {% endif %}
+
+                        {# Loop through additional gallery images #}
+                        {# Conditional: Displays additional gallery images if `gallery_images` string is not empty. #}
+                        {% if company.gallery_images %}
+                            {# Splits the comma-separated `gallery_images` string into individual image paths. #}
+                            {% for image_path in company.gallery_images.split(',') %} 
+                                {# Conditional: Ensures the path is not empty after stripping whitespace,
+                                   preventing display of empty image tags. #}
+                                {% if image_path.strip() %} 
+                                    <div class="gallery-item">
+                                        {# Displays each gallery image, generating the static URL for it. #}
+                                        <img src="{{ url_for('static', filename=image_path.strip()) }}" alt="Work by {{ company.name }}">
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </section>
+            {% endif %}
+
+            <section class="reviews">
+                <h2>Customer Reviews</h2>
+                
+                {# Review Submission Form - Visible only to logged-in clients #}
+                {# Conditional: This form is only displayed if a user is authenticated AND is a 'client'. #}
+                {% if current_user.is_authenticated and current_user.is_client %}
+                <div class="review-form-container">
+                    <h3>Leave a Review</h3>
+                    {# The review form. It uses `data-company-id` to pass the company's ID to JavaScript for AJAX submission. #}
+                    <form id="reviewForm" data-company-id="{{ company.company_id }}">
+                        <div class="form-group">
+                            <label for="rating">Rating (1-5):</label>
+                            <input type="number" id="rating" name="rating" min="1" max="5" step="0.1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="review">Your Review (optional):</label>
+                            <textarea id="review" name="review" rows="5"></textarea>
+                        </div>
+                        <button type="submit" class="btn submit-review-btn">Submit Review</button>
+                    </form>
+                    <div id="reviewMessage" style="margin-top: 10px;"></div> {# This div is used by JavaScript to display feedback messages to the user (e.g., success, error). #}
+                </div>
+                {% endif %}
+
+                {# Display Existing Reviews #}
+                {# Conditional: Checks if there are any ratings (`company.ratings` list is not empty). #}
+                {% if company.ratings %} 
+                    <div class="reviews-list">
+                        {# Loop through each rating object associated with the company. #}
+                        {% for rating_obj in company.ratings %} 
+                        <div class="review-card">
+                            <p><strong>Client:</strong> {{ rating_obj.client.name }}</p> {# Displays the name of the client who submitted the review, accessing it via the `client` relationship. #}
+                            <p><strong>Rating:</strong> {{ rating_obj.rating|round(1) }} / 5</p> {# Displays the rating, rounded to one decimal. #}
+                            {% if rating_obj.review %} {# Conditional: Only displays the review text if it exists. #}
+                                <p><em>"{{ rating_obj.review }}"</em></p>
+                            {% endif %}
+                            <p class="review-date">Reviewed on: {{ rating_obj.created_at.strftime('%Y-%m-%d') }}</p> {# Displays the date of the review, formatted to Year-Month-Day. #}
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {# Message displayed if there are no reviews for this company yet. #}
+                    <p>No reviews yet for this company.</p>
+                {% endif %}
+            </section>
+
+            <section class="call-to-action">
+                <h2>Ready to connect with {{ company.name }}?</h2>
+                <div class="action-buttons">
+                    {# Conditional: These buttons are only shown if the current user is authenticated AND is a 'client'. #}
+                    {% if current_user.is_authenticated and current_user.is_client %}
+                        {# Message Button: Links to the chat interface with the specific client and company. #}
+                        <a href="{{ url_for('main.view_chat', client_id=current_user.client_id, company_id=company.company_id) }}" class="btn message-btn">Message us</a>
+                        
+                        {# Save/Un-save Company Button Form #}
+                        {# This form toggles saving/unsaving the company. It sends a POST request to `toggle_saved_company`. #}
+                        <form action="{{ url_for('main.toggle_saved_company', company_id=company.company_id) }}" method="POST" class="save-form">
+                            {# The button's text and CSS class (save/unsave) change dynamically based on `is_saved` variable. #}
+                            <button type="submit" class="btn save-toggle-btn {% if is_saved %}unsave{% else %}save{% endif %}">
+                                {% if is_saved %}Un-save Company{% else %}Save Company{% endif %}
+                            </button>
+                        </form>
+                    {# Conditional: If the user is NOT authenticated. #}
+                    {% elif not current_user.is_authenticated %}
+                        <p>Please <a href="{{ url_for('main.login_choice') }}">log in</a> as a client to message this company or leave a review.</p>
+                    {# Fallback for other authenticated user types (e.g., if a company user is viewing another company's profile). #}
+                    {% else %}
+                        <p>Connect with this company for your service needs!</p>
+                    {% endif %}
+                </div>
+            </section>
+
+        {% else %}
+            {# Message displayed if the company data is not found (e.g., invalid company_id in URL). #}
+            <p>Company not found.</p>
+        {% endif %}
+    </main>
+{% endblock %}
