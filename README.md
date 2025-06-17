@@ -106,9 +106,3 @@ A brief overview of the main directories and files:
 * **Flask-Login:** User session management
 * **Jinja2:** Templating Engine
 * **HTML, CSS, JavaScript:** Frontend development
-
----
-
-## License
-
-[Choose a license, e.g., MIT, Apache 2.0, etc., and add a link here if you have a LICENSE file.]
