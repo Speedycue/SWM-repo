@@ -29,11 +29,11 @@ Before you begin, ensure you have the following installed:
 
 ### Installation
 
-1.  **Clone the Repository (if applicable):**
+1.  **Clone the Repository :**
     If your code is in a Git repository, clone it to your local machine:
     ```bash
-    git clone <your-repository-url>
-    cd <your-project-folder>
+    git clone <https://github.com/SWM-repo>
+    cd <swm1>
     ```
     If you just have the files, navigate to your project's root directory in your terminal.
 
